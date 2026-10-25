@@ -1,0 +1,27 @@
+白天 200 张，夜间 200 张  device=cuda
+增强权重 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\generalization.pth
+检测器 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\yolo11s.pt  imgsz=1280
+[增强] 0.47 s/张（含读写）
+
+检测结果（IoU 0.5；P/R 按置信度 >= 0.25 统计）
+
+类别：car
+输入              平均亮度    AP50    精确率     召回率     GT 框数 
+day               102.9       0.741   0.835      0.623      2403  
+night             29.9        0.468   0.687      0.336      1774  
+night_gamma       45.6        0.356   0.581      0.272      1774  
+night_cidnet      88.1        0.202   0.503      0.147      1774  
+
+类别：vehicle(car+truck+bus)
+输入              平均亮度    AP50    精确率     召回率     GT 框数 
+day               102.9       0.754   0.812      0.643      2558  
+night             29.9        0.482   0.680      0.353      1842  
+night_gamma       45.6        0.380   0.575      0.295      1842  
+night_cidnet      88.1        0.245   0.530      0.186      1842  
+
+类别：person
+输入              平均亮度    AP50    精确率     召回率     GT 框数 
+day               102.9       0.597   0.704      0.556      376   
+night             29.9        0.402   0.706      0.294      163   
+night_gamma       45.6        0.326   0.602      0.307      163   
+night_cidnet      88.1        0.178   0.364      0.196      163   

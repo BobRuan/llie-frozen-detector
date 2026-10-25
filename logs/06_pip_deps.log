@@ -1,0 +1,82 @@
+﻿Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting lpips==0.1.4
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/9b/13/1df50c7925d9d2746702719f40e864f51ed66f307b20ad32392f1ad2bb87/lpips-0.1.4-py3-none-any.whl (53 kB)
+Collecting einops==0.6.1
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/68/24/b05452c986e8eff11f47e123a40798ae693f2fa1ed2f9546094997d2f6be/einops-0.6.1-py3-none-any.whl (42 kB)
+Collecting tqdm
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/a7/03/921a3d3c75785aca9ebfbfcabfbc3a1be12e2ab5265deb026d55a5a3f83e/tqdm-4.70.1-py3-none-any.whl (80 kB)
+Collecting opencv-python==4.7.0.72
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/36/98/fab8d982e2e2b57bdebcad64c7e5b5a14ac91c657cac509b9cf3fbea49d2/opencv_python-4.7.0.72-cp37-abi3-win_amd64.whl (38.2 MB)
+     --------------------------------------- 38.2/38.2 MB 10.6 MB/s eta 0:00:00
+Collecting scipy
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/32/8e/7f403535ddf826348c9b8417791e28712019962f7e90ff845896d6325d09/scipy-1.10.1-cp38-cp38-win_amd64.whl (42.2 MB)
+     --------------------------------------- 42.2/42.2 MB 10.3 MB/s eta 0:00:00
+Collecting huggingface_hub
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/a8/af/48ac8483240de756d2438c380746e7130d1c6f75802ef22f3c6d49982787/huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+     -------------------------------------- 566.4/566.4 kB 9.8 MB/s eta 0:00:00
+Collecting safetensors
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/69/e2/b011c38e5394c4c18fb5500778a55ec43ad6106126e74723ffaee246f56e/safetensors-0.5.3-cp38-abi3-win_amd64.whl (308 kB)
+Collecting thop
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/bb/0f/72beeab4ff5221dc47127c80f8834b4bcd0cb36f6ba91c0b1d04a1233403/thop-0.1.1.post2209072238-py3-none-any.whl (15 kB)
+Collecting matplotlib
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/16/51/58b0b9de42fe1e665736d9286f88b5f1556a0e22bed8a71f468231761083/matplotlib-3.7.5-cp38-cp38-win_amd64.whl (7.5 MB)
+     ---------------------------------------- 7.5/7.5 MB 8.4 MB/s eta 0:00:00
+Requirement already satisfied: torch>=0.4.0 in e:\anaconda\envs\cidnet\lib\site-packages (from lpips==0.1.4) (2.0.1+cu118)
+Requirement already satisfied: torchvision>=0.2.1 in e:\anaconda\envs\cidnet\lib\site-packages (from lpips==0.1.4) (0.15.2+cu118)
+Requirement already satisfied: numpy>=1.14.3 in e:\anaconda\envs\cidnet\lib\site-packages (from lpips==0.1.4) (1.24.4)
+Collecting colorama (from tqdm)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Requirement already satisfied: filelock in e:\anaconda\envs\cidnet\lib\site-packages (from huggingface_hub) (3.16.1)
+Collecting fsspec>=2023.5.0 (from huggingface_hub)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/56/53/eb690efa8513166adef3e0669afd31e95ffde69fb3c52ec2ac7223ed6018/fsspec-2025.3.0-py3-none-any.whl (193 kB)
+Collecting packaging>=20.9 (from huggingface_hub)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl (100 kB)
+Collecting pyyaml>=5.1 (from huggingface_hub)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/76/b2/2b69cee94c9eb215216fc05778675c393e3aa541131dc910df8e52c83776/PyYAML-6.0.3-cp38-cp38-win_amd64.whl (160 kB)
+Requirement already satisfied: requests in e:\anaconda\envs\cidnet\lib\site-packages (from huggingface_hub) (2.28.1)
+Requirement already satisfied: typing-extensions>=3.7.4.3 in e:\anaconda\envs\cidnet\lib\site-packages (from huggingface_hub) (4.13.2)
+Collecting contourpy>=1.0.1 (from matplotlib)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/96/1b/b05cd42c8d21767a0488b883b38658fb9a45f86c293b7b42521a8113dc5d/contourpy-1.1.1-cp38-cp38-win_amd64.whl (477 kB)
+Collecting cycler>=0.10 (from matplotlib)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/e7/05/c19819d5e3d95294a6f5947fb9b9629efb316b96de511b418c53d245aae6/cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Collecting fonttools>=4.22.0 (from matplotlib)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/dc/7a/2b3666e8c13d035adf656a8ae391380656144760353c97f74747c64fd3e5/fonttools-4.57.0-cp38-cp38-win_amd64.whl (1.5 MB)
+     ---------------------------------------- 1.5/1.5 MB 27.6 MB/s eta 0:00:00
+Collecting kiwisolver>=1.0.1 (from matplotlib)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/52/77/7e04cca2ff1dc6ee6b7654cebe233de72b7a3ec5616501b6f3144fb70740/kiwisolver-1.4.7-cp38-cp38-win_amd64.whl (55 kB)
+Requirement already satisfied: pillow>=6.2.0 in e:\anaconda\envs\cidnet\lib\site-packages (from matplotlib) (10.4.0)
+Collecting pyparsing>=2.3.1 (from matplotlib)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/e5/0c/0e3c05b1c87bb6a1c76d281b0f35e78d2d80ac91b5f8f524cebf77f51049/pyparsing-3.1.4-py3-none-any.whl (104 kB)
+Collecting python-dateutil>=2.7 (from matplotlib)
+  Using cached https://pypi.tuna.tsinghua.edu.cn/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting importlib-resources>=3.2.0 (from matplotlib)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/e1/6a/4604f9ae2fa62ef47b9de2fa5ad599589d28c9fd1d335f32759813dfa91e/importlib_resources-6.4.5-py3-none-any.whl (36 kB)
+Collecting zipp>=3.1.0 (from importlib-resources>=3.2.0->matplotlib)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/62/8b/5ba542fa83c90e09eac972fc9baca7a88e7e7ca4b221a89251954019308b/zipp-3.20.2-py3-none-any.whl (9.2 kB)
+Collecting six>=1.5 (from python-dateutil>=2.7->matplotlib)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl (11 kB)
+Requirement already satisfied: sympy in e:\anaconda\envs\cidnet\lib\site-packages (from torch>=0.4.0->lpips==0.1.4) (1.13.3)
+Requirement already satisfied: networkx in e:\anaconda\envs\cidnet\lib\site-packages (from torch>=0.4.0->lpips==0.1.4) (3.1)
+Requirement already satisfied: jinja2 in e:\anaconda\envs\cidnet\lib\site-packages (from torch>=0.4.0->lpips==0.1.4) (3.1.6)
+Requirement already satisfied: charset-normalizer<3,>=2 in e:\anaconda\envs\cidnet\lib\site-packages (from requests->huggingface_hub) (2.1.1)
+Requirement already satisfied: idna<4,>=2.5 in e:\anaconda\envs\cidnet\lib\site-packages (from requests->huggingface_hub) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in e:\anaconda\envs\cidnet\lib\site-packages (from requests->huggingface_hub) (1.26.13)
+Requirement already satisfied: certifi>=2017.4.17 in e:\anaconda\envs\cidnet\lib\site-packages (from requests->huggingface_hub) (2022.12.7)
+Requirement already satisfied: MarkupSafe>=2.0 in e:\anaconda\envs\cidnet\lib\site-packages (from jinja2->torch>=0.4.0->lpips==0.1.4) (2.1.5)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in e:\anaconda\envs\cidnet\lib\site-packages (from sympy->torch>=0.4.0->lpips==0.1.4) (1.3.0)
+Installing collected packages: zipp, six, scipy, safetensors, pyyaml, pyparsing, packaging, opencv-python, kiwisolver, fsspec, fonttools, einops, cycler, contourpy, colorama, tqdm, python-dateutil, importlib-resources, thop, matplotlib, huggingface_hub, lpips
+python.exe :   WARNING: The scripts fonttools.exe, pyftmerge.exe, pyftsubset.exe and ttx.exe are installed in 'E:\Anaco
+nda\envs\cidnet\Scripts' which is not on PATH.
+At line:1 char:489
++ ... g" -Tail 2; & $py -m pip install lpips==0.1.4 einops==0.6.1 tqdm open ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  WARNING: The ...is not on PATH.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script tqdm.exe is installed in 'E:\Anaconda\envs\cidnet\Scripts' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The scripts hf.exe, huggingface-cli.exe and tiny-agents.exe are installed in 'E:\Anaconda\envs\cidnet\Script
+s' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+Successfully installed colorama-0.4.6 contourpy-1.1.1 cycler-0.12.1 einops-0.6.1 fonttools-4.57.0 fsspec-2025.3.0 huggingface_hub-0.36.2 importlib-resources-6.4.5 kiwisolver-1.4.7 lpips-0.1.4 matplotlib-3.7.5 opencv-python-4.7.0.72 packaging-26.2 pyparsing-3.1.4 python-dateutil-2.9.0.post0 pyyaml-6.0.3 safetensors-0.5.3 scipy-1.10.1 six-1.17.0 thop-0.1.1.post2209072238 tqdm-4.70.1 zipp-3.20.2

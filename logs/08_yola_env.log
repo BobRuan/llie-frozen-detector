@@ -1,0 +1,201 @@
+﻿Retrieving notices: ...working... done
+Source:      E:\Anaconda\envs\cidnet
+Destination: E:\Anaconda\envs\yola
+Packages: 12
+Files: 27362
+
+Downloading and Extracting Packages: ...working... done
+
+## Package Plan ##
+
+  environment location: E:\Anaconda\envs\yola
+
+  added / updated specs:
+    - defaults/win-64::ca-certificates==2026.9.25=haa95532_0
+    - defaults/win-64::libffi==3.4.8=h42d73b9_3
+    - defaults/win-64::openssl==3.5.9=hbb43b14_0
+    - defaults/win-64::pip==24.2=py38haa95532_0
+    - defaults/win-64::python==3.8.20=h8205438_0
+    - defaults/win-64::setuptools==75.1.0=py38haa95532_0
+    - defaults/win-64::sqlite==3.53.4=hee5a0db_0
+    - defaults/win-64::ucrt==10.0.22621.0=haa95532_0
+    - defaults/win-64::vc14_runtime==14.44.35208=h4927774_12
+    - defaults/win-64::vc==14.3=h2df5915_12
+    - defaults/win-64::vs2015_runtime==14.44.35208=ha6b5a95_12
+    - defaults/win-64::wheel==0.44.0=py38haa95532_0
+
+
+The following NEW packages will be INSTALLED:
+
+  ca-certificates    pkgs/main/win-64::ca-certificates-2026.9.25-haa95532_0 
+  libffi             pkgs/main/win-64::libffi-3.4.8-h42d73b9_3 
+  openssl            pkgs/main/win-64::openssl-3.5.9-hbb43b14_0 
+  pip                pkgs/main/win-64::pip-24.2-py38haa95532_0 
+  python             pkgs/main/win-64::python-3.8.20-h8205438_0 
+  setuptools         pkgs/main/win-64::setuptools-75.1.0-py38haa95532_0 
+  sqlite             pkgs/main/win-64::sqlite-3.53.4-hee5a0db_0 
+  ucrt               pkgs/main/win-64::ucrt-10.0.22621.0-haa95532_0 
+  vc                 pkgs/main/win-64::vc-14.3-h2df5915_12 
+  vc14_runtime       pkgs/main/win-64::vc14_runtime-14.44.35208-h4927774_12 
+  vs2015_runtime     pkgs/main/win-64::vs2015_runtime-14.44.35208-ha6b5a95_12 
+  wheel              pkgs/main/win-64::wheel-0.44.0-py38haa95532_0 
+
+
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+#
+# To activate this environment, use
+#
+#     $ conda activate yola
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+There are 2 more messages. To retrieve them run:
+
+conda notices
+
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting mmengine==0.10.4
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/0b/03/e8a1da1e73d6d9ba3ada49780c0c27afcea4607539ccf9a4be75e2b08533/mmengine-0.10.4-py3-none-any.whl (451 kB)
+Collecting addict (from mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/6a/00/b08f23b7d7e1e14ce01419a467b583edbb93c6cdb8654e54a9cc579cd61f/addict-2.4.0-py3-none-any.whl (3.8 kB)
+Requirement already satisfied: matplotlib in e:\anaconda\envs\yola\lib\site-packages (from mmengine==0.10.4) (3.7.5)
+Requirement already satisfied: numpy in e:\anaconda\envs\yola\lib\site-packages (from mmengine==0.10.4) (1.24.4)
+Requirement already satisfied: pyyaml in e:\anaconda\envs\yola\lib\site-packages (from mmengine==0.10.4) (6.0.3)
+Collecting rich (from mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/b3/76/6d163cfac87b632216f71879e6b2cf17163f773ff59c00b5ff4900a80fa3/rich-14.3.4-py3-none-any.whl (310 kB)
+Collecting termcolor (from mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/d9/5f/8c716e47b3a50cbd7c146f45881e11d9414def768b7cd9c5e6650ec2a80a/termcolor-2.4.0-py3-none-any.whl (7.7 kB)
+Collecting yapf (from mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/37/81/6acd6601f61e31cfb8729d3da6d5df966f80f374b78eff83760714487338/yapf-0.43.0-py3-none-any.whl (256 kB)
+Requirement already satisfied: opencv-python>=3 in e:\anaconda\envs\yola\lib\site-packages (from mmengine==0.10.4) (4.7.0.72)
+Collecting regex (from mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/cf/69/c39e16320400842eb4358c982ef5fc680800866f35ebfd4dd38a22967ce0/regex-2024.11.6-cp38-cp38-win_amd64.whl (274 kB)
+Requirement already satisfied: contourpy>=1.0.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (1.1.1)
+Requirement already satisfied: cycler>=0.10 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (4.57.0)
+Requirement already satisfied: kiwisolver>=1.0.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (1.4.7)
+Requirement already satisfied: packaging>=20.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (26.2)
+Requirement already satisfied: pillow>=6.2.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (10.4.0)
+Requirement already satisfied: pyparsing>=2.3.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (3.1.4)
+Requirement already satisfied: python-dateutil>=2.7 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (2.9.0.post0)
+Requirement already satisfied: importlib-resources>=3.2.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine==0.10.4) (6.4.5)
+Collecting markdown-it-py>=2.2.0 (from rich->mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/42/d7/1ec15b46af6af88f19b8e5ffea08fa375d433c998b8a7639e76935c14f1f/markdown_it_py-3.0.0-py3-none-any.whl (87 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich->mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/c7/21/705964c7812476f378728bdf590ca4b771ec72385c533964653c68e86bdc/pygments-2.19.2-py3-none-any.whl (1.2 MB)
+     ---------------------------------------- 1.2/1.2 MB 31.1 MB/s eta 0:00:00
+Collecting platformdirs>=3.5.1 (from yapf->mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/3c/a6/bc1012356d8ece4d66dd75c4b9fc6c1f6650ddd5991e421177d9f8f671be/platformdirs-4.3.6-py3-none-any.whl (18 kB)
+Collecting tomli>=2.0.1 (from yapf->mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/60/3f/3e3f8fd0919249b0200c80fbc4f9a1e70be19f9883da71dfb7f8b9ab8aca/tomli-2.5.0-py3-none-any.whl (14 kB)
+Requirement already satisfied: zipp>=3.1.0 in e:\anaconda\envs\yola\lib\site-packages (from importlib-resources>=3.2.0->matplotlib->mmengine==0.10.4) (3.20.2)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich->mmengine==0.10.4)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Requirement already satisfied: six>=1.5 in e:\anaconda\envs\yola\lib\site-packages (from python-dateutil>=2.7->matplotlib->mmengine==0.10.4) (1.17.0)
+Installing collected packages: addict, tomli, termcolor, regex, pygments, platformdirs, mdurl, yapf, markdown-it-py, rich, mmengine
+python.exe :   WARNING: The script pygmentize.exe is installed in 'E:\Anaconda\envs\yola\Scripts' which is not on PATH.
+At line:1 char:514
++ ... a\python.exe'; & $py -m pip install mmengine==0.10.4 *>> $log; & $py  ...
++                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  WARNING: The ...is not on PATH.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The scripts yapf-diff.exe and yapf.exe are installed in 'E:\Anaconda\envs\yola\Scripts' which is not on PATH
+.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script markdown-it.exe is installed in 'E:\Anaconda\envs\yola\Scripts' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+Successfully installed addict-2.4.0 markdown-it-py-3.0.0 mdurl-0.1.2 mmengine-0.10.4 platformdirs-4.3.6 pygments-2.19.2 regex-2024.11.6 rich-14.3.4 termcolor-2.4.0 tomli-2.5.0 yapf-0.43.0
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Looking in links: https://download.openmmlab.com/mmcv/dist/cu118/torch2.0.0/index.html
+Collecting mmcv==2.1.0
+  Downloading https://download.openmmlab.com/mmcv/dist/cu118/torch2.0.0/mmcv-2.1.0-cp38-cp38-win_amd64.whl (35.4 MB)
+     ---------------------------------------- 35.4/35.4 MB 5.5 MB/s eta 0:00:00
+Requirement already satisfied: addict in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (2.4.0)
+Requirement already satisfied: mmengine>=0.3.0 in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (0.10.4)
+Requirement already satisfied: numpy in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (1.24.4)
+Requirement already satisfied: packaging in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (26.2)
+Requirement already satisfied: Pillow in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (10.4.0)
+Requirement already satisfied: pyyaml in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (6.0.3)
+Requirement already satisfied: yapf in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (0.43.0)
+Requirement already satisfied: opencv-python>=3 in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (4.7.0.72)
+Requirement already satisfied: regex in e:\anaconda\envs\yola\lib\site-packages (from mmcv==2.1.0) (2024.11.6)
+Requirement already satisfied: matplotlib in e:\anaconda\envs\yola\lib\site-packages (from mmengine>=0.3.0->mmcv==2.1.0) (3.7.5)
+Requirement already satisfied: rich in e:\anaconda\envs\yola\lib\site-packages (from mmengine>=0.3.0->mmcv==2.1.0) (14.3.4)
+Requirement already satisfied: termcolor in e:\anaconda\envs\yola\lib\site-packages (from mmengine>=0.3.0->mmcv==2.1.0) (2.4.0)
+Requirement already satisfied: platformdirs>=3.5.1 in e:\anaconda\envs\yola\lib\site-packages (from yapf->mmcv==2.1.0) (4.3.6)
+Requirement already satisfied: tomli>=2.0.1 in e:\anaconda\envs\yola\lib\site-packages (from yapf->mmcv==2.1.0) (2.5.0)
+Requirement already satisfied: contourpy>=1.0.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (1.1.1)
+Requirement already satisfied: cycler>=0.10 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (4.57.0)
+Requirement already satisfied: kiwisolver>=1.0.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (1.4.7)
+Requirement already satisfied: pyparsing>=2.3.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (3.1.4)
+Requirement already satisfied: python-dateutil>=2.7 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (2.9.0.post0)
+Requirement already satisfied: importlib-resources>=3.2.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (6.4.5)
+Requirement already satisfied: markdown-it-py>=2.2.0 in e:\anaconda\envs\yola\lib\site-packages (from rich->mmengine>=0.3.0->mmcv==2.1.0) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in e:\anaconda\envs\yola\lib\site-packages (from rich->mmengine>=0.3.0->mmcv==2.1.0) (2.19.2)
+Requirement already satisfied: zipp>=3.1.0 in e:\anaconda\envs\yola\lib\site-packages (from importlib-resources>=3.2.0->matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (3.20.2)
+Requirement already satisfied: mdurl~=0.1 in e:\anaconda\envs\yola\lib\site-packages (from markdown-it-py>=2.2.0->rich->mmengine>=0.3.0->mmcv==2.1.0) (0.1.2)
+Requirement already satisfied: six>=1.5 in e:\anaconda\envs\yola\lib\site-packages (from python-dateutil>=2.7->matplotlib->mmengine>=0.3.0->mmcv==2.1.0) (1.17.0)
+Installing collected packages: mmcv
+Successfully installed mmcv-2.1.0
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting mmdet==3.3.0
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/02/c7/c2d91161c9b3e1c237ea00e9cefb7f4bfe2854769f56025db415b734aedb/mmdet-3.3.0-py3-none-any.whl (2.2 MB)
+     ---------------------------------------- 2.2/2.2 MB 2.3 MB/s eta 0:00:00
+Collecting gdown
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/20/ad/0e30d078a2cc84a17a81c0a1f226d617edf12ddd375dafe021fb66a2c8b0/gdown-5.2.2-py3-none-any.whl (18 kB)
+Requirement already satisfied: matplotlib in e:\anaconda\envs\yola\lib\site-packages (from mmdet==3.3.0) (3.7.5)
+Requirement already satisfied: numpy in e:\anaconda\envs\yola\lib\site-packages (from mmdet==3.3.0) (1.24.4)
+Collecting pycocotools (from mmdet==3.3.0)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/85/1a/f3f95a5c994be2b554f370ac314b034d43d82c69be3fd40fabed5cfd5347/pycocotools-2.0.7-cp38-cp38-win_amd64.whl (85 kB)
+Requirement already satisfied: scipy in e:\anaconda\envs\yola\lib\site-packages (from mmdet==3.3.0) (1.10.1)
+Collecting shapely (from mmdet==3.3.0)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/7c/54/c1b7ca8286df3ba767a99e8c706ae2e793b7e443c474b0840f3b3f10d09a/shapely-2.0.7-cp38-cp38-win_amd64.whl (1.5 MB)
+     ---------------------------------------- 1.5/1.5 MB 12.7 MB/s eta 0:00:00
+Requirement already satisfied: six in e:\anaconda\envs\yola\lib\site-packages (from mmdet==3.3.0) (1.17.0)
+Collecting terminaltables (from mmdet==3.3.0)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/c4/fb/ea621e0a19733e01fe4005d46087d383693c0f4a8f824b47d8d4122c87e0/terminaltables-3.1.10-py2.py3-none-any.whl (15 kB)
+Requirement already satisfied: tqdm in e:\anaconda\envs\yola\lib\site-packages (from mmdet==3.3.0) (4.70.1)
+Collecting beautifulsoup4 (from gdown)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/88/c6/92fcd42f1ba33e1184263f25bfabf3d27c383410470f169e4b8163bf9c17/beautifulsoup4-4.15.0-py3-none-any.whl (109 kB)
+Requirement already satisfied: filelock in e:\anaconda\envs\yola\lib\site-packages (from gdown) (3.16.1)
+Requirement already satisfied: requests[socks] in e:\anaconda\envs\yola\lib\site-packages (from gdown) (2.28.1)
+Collecting soupsieve>=1.6.1 (from beautifulsoup4->gdown)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/e7/9c/0e6afc12c269578be5c0c1c9f4b49a8d32770a080260c333ac04cc1c832d/soupsieve-2.7-py3-none-any.whl (36 kB)
+Requirement already satisfied: typing-extensions>=4.0.0 in e:\anaconda\envs\yola\lib\site-packages (from beautifulsoup4->gdown) (4.13.2)
+Requirement already satisfied: contourpy>=1.0.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (1.1.1)
+Requirement already satisfied: cycler>=0.10 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (4.57.0)
+Requirement already satisfied: kiwisolver>=1.0.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (1.4.7)
+Requirement already satisfied: packaging>=20.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (26.2)
+Requirement already satisfied: pillow>=6.2.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (10.4.0)
+Requirement already satisfied: pyparsing>=2.3.1 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (3.1.4)
+Requirement already satisfied: python-dateutil>=2.7 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (2.9.0.post0)
+Requirement already satisfied: importlib-resources>=3.2.0 in e:\anaconda\envs\yola\lib\site-packages (from matplotlib->mmdet==3.3.0) (6.4.5)
+Requirement already satisfied: charset-normalizer<3,>=2 in e:\anaconda\envs\yola\lib\site-packages (from requests[socks]->gdown) (2.1.1)
+Requirement already satisfied: idna<4,>=2.5 in e:\anaconda\envs\yola\lib\site-packages (from requests[socks]->gdown) (3.4)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in e:\anaconda\envs\yola\lib\site-packages (from requests[socks]->gdown) (1.26.13)
+Requirement already satisfied: certifi>=2017.4.17 in e:\anaconda\envs\yola\lib\site-packages (from requests[socks]->gdown) (2022.12.7)
+Collecting PySocks!=1.5.7,>=1.5.6 (from requests[socks]->gdown)
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl (16 kB)
+Requirement already satisfied: colorama in e:\anaconda\envs\yola\lib\site-packages (from tqdm->mmdet==3.3.0) (0.4.6)
+Requirement already satisfied: zipp>=3.1.0 in e:\anaconda\envs\yola\lib\site-packages (from importlib-resources>=3.2.0->matplotlib->mmdet==3.3.0) (3.20.2)
+Installing collected packages: terminaltables, soupsieve, shapely, PySocks, beautifulsoup4, pycocotools, gdown, mmdet
+python.exe :   WARNING: The script gdown.exe is installed in 'E:\Anaconda\envs\yola\Scripts' which is not on PATH.
+At line:1 char:677
++ ... ml *>> $log; & $py -m pip install mmdet==3.3.0 gdown *>> $log; & $py  ...
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  WARNING: The ...is not on PATH.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+Successfully installed PySocks-1.7.1 beautifulsoup4-4.15.0 gdown-5.2.2 mmdet-3.3.0 pycocotools-2.0.7 shapely-2.0.7 soupsieve-2.7 terminaltables-3.1.10
+OK torch 2.0.1+cu118 mmcv 2.1.0 mmdet 3.3.0 mmengine 0.10.4 cuda True

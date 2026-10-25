@@ -1,0 +1,21 @@
+150 对  device=cuda  检测器 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\yolo11s.pt  imgsz=1280
+[增强] cidnet_generalization: 0.47 s/张（含读写）
+[增强] cidnet_lolv2real: 0.49 s/张（含读写）
+
+结果（PSNR/SSIM 是和同一场景的正常光图比；mAP50 是 8 类平均，IoU 0.5；P/R 按置信度 >= 0.25）
+输入                      亮度      PSNR    SSIM    mAP50   精确率     召回率     
+normal                    50.9      -       -       0.686   0.717      0.709      
+dark                      6.8       13.84   0.139   0.384   0.762      0.364      
+auto_gamma                81.4      15.07   0.265   0.189   0.769      0.140      
+cidnet_generalization     63.9      17.71   0.305   0.295   0.712      0.277      
+cidnet_lolv2real          83.3      15.96   0.356   0.411   0.711      0.430      
+
+各类 AP50
+输入                      bicycle   car       motorbike bus       bottle    chair     diningtab tvmonitor 
+normal                    0.835     0.938     0.615     0.897     0.841     0.699     0.290     0.376     
+dark                      0.324     0.746     0.209     0.426     0.503     0.418     0.163     0.285     
+auto_gamma                0.100     0.373     0.005     0.352     0.329     0.163     0.027     0.164     
+cidnet_generalization     0.313     0.544     0.264     0.347     0.444     0.240     0.076     0.135     
+cidnet_lolv2real          0.472     0.695     0.301     0.425     0.605     0.424     0.138     0.226     
+
+图：C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\lis_sample\overview.jpg（绿框 = 标注，红框 = 检测结果）

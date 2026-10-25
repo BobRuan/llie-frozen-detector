@@ -1,0 +1,12 @@
+==== 2026-10-14 01:25:44  来源：LIS 官方 Google Drive
+annotations.zip: 下载完成，28 MB
+RGB-dark.zip: 下载完成，317 MB
+RGB-normal.zip: 816 / 3954 MB  27.2 MB/s
+RGB-normal.zip: 1556 / 3954 MB  25.9 MB/s
+RGB-normal.zip: 2332 / 3954 MB  25.8 MB/s
+RGB-normal.zip: 3156 / 3954 MB  26.2 MB/s
+RGB-normal.zip: 3940 / 3954 MB  26.2 MB/s
+RGB-normal.zip: 下载完成，3954 MB
+train: 1561 对，7455 个框，保存到 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\data\LIS\train
+test: 669 对，2934 个框，保存到 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\data\LIS\test
+完成（图像按正常光图的编号命名）

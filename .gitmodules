@@ -1,0 +1,8 @@
+[submodule "code/HVI-CIDNet"]
+	path = code/HVI-CIDNet
+	url = https://github.com/Fediory/HVI-CIDNet.git
+	ignore = untracked
+[submodule "code/YOLA"]
+	path = code/YOLA
+	url = https://github.com/MingboHong/YOLA.git
+	ignore = untracked

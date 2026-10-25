@@ -1,0 +1,5 @@
+669 对  device=cuda  检测器 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\yolo11s.pt  imgsz=1280
+[增强] cidnet_generalization: 0.43 s/张（含读写）
+[增强] cidnet_lolv2real: 0.45 s/张（含读写）
+[增强] ft_image_only: 0.42 s/张（含读写）
+[增强] ft_yolo_feat: 0.42 s/张（含读写）

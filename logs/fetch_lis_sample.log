@@ -1,0 +1,5 @@
+==== 2026-10-10 13:50:43  来源：LIS 官方 Google Drive
+测试集 669 对，类别 ['bicycle', 'chair', 'diningtable', 'bottle', 'motorbike', 'car', 'tvmonitor', 'bus']
+normal: 已保存 150 张，实际下载 450.4 MB
+dark: 已保存 150 张，实际下载 187.7 MB
+完成：150 对，保存到 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\data\LIS_sample（图像按正常光图的编号命名）

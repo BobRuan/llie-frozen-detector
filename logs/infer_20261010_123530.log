@@ -1,0 +1,7 @@
+device=cuda  weight=C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\LOLv2_real\w_perc.pth  alpha=1.0  gamma=1.0
+input=C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\_size_test_in  (3 张)
+output=C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\_size_test_tile768
+[1/3] a_1280x720.png  1280x720  tile768  0.87s  peak 801 MiB
+[2/3] b_1920x1080.png  1920x1080  tile768  1.48s  peak 884 MiB
+[3/3] c_2448x2048.png  2448x2048  tile768  3.01s  peak 963 MiB
+完成：3 张，用时 5.4s，日志 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\logs\infer_20261010_123530.log

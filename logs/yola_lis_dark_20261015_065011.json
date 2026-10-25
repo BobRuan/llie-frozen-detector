@@ -1,0 +1,30 @@
+{
+  "time": "20261015_065011",
+  "checkpoint": "weights/yola/yolov3_exdark/727.pth",
+  "config": "code/YOLA/configs/yolov3/yolov3_yola_exdark.py",
+  "input": "dark",
+  "classes": [
+    "bicycle",
+    "bottle",
+    "bus",
+    "car",
+    "chair",
+    "motorbike",
+    "diningtable"
+  ],
+  "yola": {
+    "mAP50": 0.5094637829632434,
+    "precision": 0.8359188544152745,
+    "recall": 0.49522799575821846,
+    "per_class_AP50": {
+      "bicycle": 0.42934195881568515,
+      "bottle": 0.406438380230673,
+      "bus": 0.5843811982331257,
+      "car": 0.7794070536747069,
+      "chair": 0.5157601062840523,
+      "motorbike": 0.5092042650621931,
+      "diningtable": 0.34171351844226744
+    }
+  },
+  "ours_file": "C:\\Users\\Administrator\\Desktop\\DeepLearningCourseProject\\llie_driving\\logs\\pipeline_lis_20261014_132848.json"
+}

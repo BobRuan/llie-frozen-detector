@@ -1,0 +1,898 @@
+﻿10/16 05:22:09 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: win32
+    Python: 3.8.20 (default, Oct  3 2024, 15:19:54) [MSC v.1929 64 bit (AMD64)]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 2023
+    GPU 0: NVIDIA GeForce RTX 3060 Laptop GPU
+    CUDA_HOME: None
+    GCC: n/a
+    PyTorch: 2.0.1+cu118
+    PyTorch compiling details: PyTorch built with:
+  - C++ Version: 199711
+  - MSVC 193431937
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.7.3 (Git Hash 6dbeffbae1f23cbbeae17adb7b5b13f1f37c080e)
+  - OpenMP 2019
+  - LAPACK is enabled (usually provided by MKL)
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.8
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.7
+  - Magma 2.5.4
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.8, CUDNN_VERSION=8.7.0, CXX_COMPILER=C:/actions-runner/_work/pytorch/pytorch/builder/windows/tmp_bin/sccache-cl.exe, CXX_FLAGS=/DWIN32 /D_WINDOWS /GR /EHsc /w /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=OFF, TORCH_VERSION=2.0.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=OFF, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.15.2+cu118
+    OpenCV: 4.7.0
+    MMEngine: 0.10.4
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 2023
+    diff_rank_seed: True
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+10/16 05:22:09 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=16, enable=False)
+backend_args = None
+data_preprocessor = dict(
+    bgr_to_rgb=True,
+    mean=[
+        0,
+        0,
+        0,
+    ],
+    pad_size_divisor=32,
+    std=[
+        255.0,
+        255.0,
+        255.0,
+    ],
+    type='DetDataPreprocessor')
+data_root = '../../data/LIS/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(interval=1, max_keep_ckpts=2, type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(type='DetVisualizationHook'))
+default_scope = 'mmdet'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+load_from = '../../weights/yola/tood_exdark/753.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
+metainfo = dict(
+    classes=(
+        'bicycle',
+        'car',
+        'motorbike',
+        'bus',
+        'bottle',
+        'chair',
+        'diningtable',
+        'tvmonitor',
+    ))
+model = dict(
+    Gtheta=[
+        0.6,
+        0.8,
+    ],
+    backbone=dict(
+        depth=50,
+        init_cfg=None,
+        norm_cfg=dict(requires_grad=True, type='BN'),
+        norm_eval=True,
+        num_stages=4,
+        out_indices=(
+            0,
+            1,
+            2,
+            3,
+        ),
+        style='pytorch',
+        type='ResNet'),
+    bbox_head=dict(
+        anchor_generator=dict(
+            octave_base_scale=8,
+            ratios=[
+                1.0,
+            ],
+            scales_per_octave=1,
+            strides=[
+                8,
+                16,
+                32,
+                64,
+                128,
+            ],
+            type='AnchorGenerator'),
+        anchor_type='anchor_free',
+        bbox_coder=dict(
+            target_means=[
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+            ],
+            target_stds=[
+                0.1,
+                0.1,
+                0.2,
+                0.2,
+            ],
+            type='DeltaXYWHBBoxCoder'),
+        feat_channels=256,
+        in_channels=256,
+        initial_loss_cls=dict(
+            activated=True,
+            alpha=0.25,
+            gamma=2.0,
+            loss_weight=1.0,
+            type='FocalLoss',
+            use_sigmoid=True),
+        loss_bbox=dict(loss_weight=2.0, type='GIoULoss'),
+        loss_cls=dict(
+            activated=True,
+            beta=2.0,
+            loss_weight=1.0,
+            type='QualityFocalLoss',
+            use_sigmoid=True),
+        num_classes=8,
+        stacked_convs=6,
+        type='TOODHead'),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            0,
+            0,
+            0,
+        ],
+        pad_size_divisor=32,
+        std=[
+            255.0,
+            255.0,
+            255.0,
+        ],
+        type='DetDataPreprocessor'),
+    kernel_nums=8,
+    kernel_size=5,
+    loss_consistency=dict(
+        loss_weight=0.01, reduction='sum', type='SmoothL1Loss'),
+    neck=dict(
+        add_extra_convs='on_output',
+        in_channels=[
+            256,
+            512,
+            1024,
+            2048,
+        ],
+        num_outs=5,
+        out_channels=256,
+        start_level=1,
+        type='FPN'),
+    test_cfg=dict(
+        max_per_img=100,
+        min_bbox_size=0,
+        nms=dict(iou_threshold=0.6, type='nms'),
+        nms_pre=1000,
+        score_thr=0.05),
+    train_cfg=dict(
+        allowed_border=-1,
+        alpha=1,
+        assigner=dict(topk=13, type='TaskAlignedAssigner'),
+        beta=6,
+        debug=False,
+        initial_assigner=dict(topk=9, type='ATSSAssigner'),
+        initial_epoch=4,
+        pos_weight=-1),
+    type='YOLA')
+optim_wrapper = dict(
+    optimizer=dict(lr=0.001, momentum=0.9, type='SGD', weight_decay=0.0005),
+    type='OptimWrapper')
+param_scheduler = [
+    dict(begin=0, by_epoch=False, end=1000, start_factor=0.1, type='LinearLR'),
+    dict(by_epoch=True, gamma=0.1, milestones=[
+        18,
+        23,
+    ], type='MultiStepLR'),
+]
+randomness = dict(diff_rank_seed=True, seed=2023)
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=4,
+    dataset=dict(
+        ann_file='test/coco_dark.json',
+        data_prefix=dict(img='test/'),
+        data_root='../../data/LIS/',
+        metainfo=dict(
+            classes=(
+                'bicycle',
+                'car',
+                'motorbike',
+                'bus',
+                'bottle',
+                'chair',
+                'diningtable',
+                'tvmonitor',
+            )),
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(keep_ratio=True, scale=(
+                608,
+                608,
+            ), type='Resize'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='../../data/LIS/test/coco_dark.json',
+    metric='bbox',
+    type='CocoMetric')
+test_pipeline = [
+    dict(backend_args=None, type='LoadImageFromFile'),
+    dict(keep_ratio=True, scale=(
+        608,
+        608,
+    ), type='Resize'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'scale_factor',
+        ),
+        type='PackDetInputs'),
+]
+train_cfg = dict(max_epochs=24, type='EpochBasedTrainLoop', val_interval=1)
+train_dataloader = dict(
+    batch_sampler=dict(type='AspectRatioBatchSampler'),
+    batch_size=2,
+    dataset=dict(
+        ann_file='train/coco_dark.json',
+        data_prefix=dict(img='train/'),
+        data_root='../../data/LIS/',
+        filter_cfg=dict(filter_empty_gt=True, min_size=32),
+        metainfo=dict(
+            classes=(
+                'bicycle',
+                'car',
+                'motorbike',
+                'bus',
+                'bottle',
+                'chair',
+                'diningtable',
+                'tvmonitor',
+            )),
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                mean=[
+                    0,
+                    0,
+                    0,
+                ],
+                ratio_range=(
+                    1,
+                    2,
+                ),
+                to_rgb=True,
+                type='Expand'),
+            dict(
+                min_crop_size=0.3,
+                min_ious=(
+                    0.4,
+                    0.5,
+                    0.6,
+                    0.7,
+                    0.8,
+                    0.9,
+                ),
+                type='MinIoURandomCrop'),
+            dict(keep_ratio=True, scale=(
+                608,
+                608,
+            ), type='Resize'),
+            dict(prob=0.5, type='RandomFlip'),
+            dict(type='PackDetInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(backend_args=None, type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(mean=[
+        0,
+        0,
+        0,
+    ], ratio_range=(
+        1,
+        2,
+    ), to_rgb=True, type='Expand'),
+    dict(
+        min_crop_size=0.3,
+        min_ious=(
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8,
+            0.9,
+        ),
+        type='MinIoURandomCrop'),
+    dict(keep_ratio=True, scale=(
+        608,
+        608,
+    ), type='Resize'),
+    dict(prob=0.5, type='RandomFlip'),
+    dict(type='PackDetInputs'),
+]
+val_cfg = None
+val_dataloader = None
+val_evaluator = None
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='DetLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = 'C:\\Users\\Administrator\\Desktop\\DeepLearningCourseProject\\llie_driving\\weights\\yola_lis_ft\\tood_lis'
+
+10/16 05:22:10 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+10/16 05:22:10 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+Done (t=0.01s)
+creating index...
+index created!
+Loads checkpoint by local backend from path: ../../weights/yola/tood_exdark/753.pth
+The model and loaded state dict do not match exactly
+
+size mismatch for bbox_head.tood_cls.weight: copying a param with shape torch.Size([12, 256, 3, 3]) from checkpoint, the shape in current model is torch.Size([8, 256, 3, 3]).
+size mismatch for bbox_head.tood_cls.bias: copying a param with shape torch.Size([12]) from checkpoint, the shape in current model is torch.Size([8]).
+10/16 05:22:11 - mmengine - INFO - Load checkpoint from ../../weights/yola/tood_exdark/753.pth
+10/16 05:22:11 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+10/16 05:22:11 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+10/16 05:22:11 - mmengine - INFO - Checkpoints will be saved to C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\yola_lis_ft\tood_lis.
+10/16 05:22:39 - mmengine - INFO - Epoch(train)  [1][ 50/781]  lr: 1.4414e-04  eta: 2:55:18  time: 0.5627  data_time: 0.2857  memory: 3180  loss: 1.2722  loss_cls: 0.7759  loss_bbox: 0.4962  loss_consist: 0.0001
+10/16 05:22:51 - mmengine - INFO - Epoch(train)  [1][100/781]  lr: 1.8919e-04  eta: 2:04:24  time: 0.2381  data_time: 0.0019  memory: 3180  loss: 0.9965  loss_cls: 0.4815  loss_bbox: 0.5145  loss_consist: 0.0005
+10/16 05:23:03 - mmengine - INFO - Epoch(train)  [1][150/781]  lr: 2.3423e-04  eta: 1:47:14  time: 0.2374  data_time: 0.0019  memory: 3180  loss: 0.8280  loss_cls: 0.3837  loss_bbox: 0.4438  loss_consist: 0.0006
+10/16 05:23:14 - mmengine - INFO - Epoch(train)  [1][200/781]  lr: 2.7928e-04  eta: 1:38:27  time: 0.2360  data_time: 0.0018  memory: 3180  loss: 0.8399  loss_cls: 0.3858  loss_bbox: 0.4534  loss_consist: 0.0008
+10/16 05:23:27 - mmengine - INFO - Epoch(train)  [1][250/781]  lr: 3.2432e-04  eta: 1:33:36  time: 0.2442  data_time: 0.0018  memory: 3180  loss: 0.7514  loss_cls: 0.3358  loss_bbox: 0.4143  loss_consist: 0.0012
+10/16 05:23:39 - mmengine - INFO - Epoch(train)  [1][300/781]  lr: 3.6937e-04  eta: 1:30:23  time: 0.2459  data_time: 0.0018  memory: 3180  loss: 0.7324  loss_cls: 0.3180  loss_bbox: 0.4134  loss_consist: 0.0010
+10/16 05:23:51 - mmengine - INFO - Epoch(train)  [1][350/781]  lr: 4.1441e-04  eta: 1:27:48  time: 0.2408  data_time: 0.0021  memory: 3180  loss: 0.7367  loss_cls: 0.3209  loss_bbox: 0.4153  loss_consist: 0.0005
+10/16 05:24:03 - mmengine - INFO - Epoch(train)  [1][400/781]  lr: 4.5946e-04  eta: 1:25:52  time: 0.2418  data_time: 0.0019  memory: 3180  loss: 0.7594  loss_cls: 0.3192  loss_bbox: 0.4390  loss_consist: 0.0012
+10/16 05:24:15 - mmengine - INFO - Epoch(train)  [1][450/781]  lr: 5.0450e-04  eta: 1:24:26  time: 0.2457  data_time: 0.0019  memory: 3180  loss: 0.7489  loss_cls: 0.3166  loss_bbox: 0.4313  loss_consist: 0.0010
+10/16 05:24:28 - mmengine - INFO - Epoch(train)  [1][500/781]  lr: 5.4955e-04  eta: 1:23:14  time: 0.2453  data_time: 0.0020  memory: 3180  loss: 0.7532  loss_cls: 0.3145  loss_bbox: 0.4370  loss_consist: 0.0017
+10/16 05:24:40 - mmengine - INFO - Epoch(train)  [1][550/781]  lr: 5.9459e-04  eta: 1:22:15  time: 0.2463  data_time: 0.0019  memory: 3180  loss: 0.6787  loss_cls: 0.2862  loss_bbox: 0.3911  loss_consist: 0.0014
+10/16 05:24:52 - mmengine - INFO - Epoch(train)  [1][600/781]  lr: 6.3964e-04  eta: 1:21:26  time: 0.2478  data_time: 0.0019  memory: 3180  loss: 0.6643  loss_cls: 0.2818  loss_bbox: 0.3816  loss_consist: 0.0009
+10/16 05:25:05 - mmengine - INFO - Epoch(train)  [1][650/781]  lr: 6.8468e-04  eta: 1:20:42  time: 0.2473  data_time: 0.0020  memory: 3180  loss: 0.6956  loss_cls: 0.2817  loss_bbox: 0.4129  loss_consist: 0.0011
+10/16 05:25:17 - mmengine - INFO - Epoch(train)  [1][700/781]  lr: 7.2973e-04  eta: 1:20:13  time: 0.2557  data_time: 0.0018  memory: 3180  loss: 0.6645  loss_cls: 0.2754  loss_bbox: 0.3880  loss_consist: 0.0011
+10/16 05:25:30 - mmengine - INFO - Epoch(train)  [1][750/781]  lr: 7.7477e-04  eta: 1:19:35  time: 0.2462  data_time: 0.0018  memory: 3180  loss: 0.7295  loss_cls: 0.2990  loss_bbox: 0.4270  loss_consist: 0.0035
+10/16 05:25:38 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:25:38 - mmengine - INFO - Saving checkpoint at 1 epochs
+10/16 05:25:51 - mmengine - INFO - Epoch(train)  [2][ 50/781]  lr: 8.4775e-04  eta: 1:18:52  time: 0.2505  data_time: 0.0031  memory: 3180  loss: 0.6566  loss_cls: 0.2828  loss_bbox: 0.3724  loss_consist: 0.0014
+10/16 05:26:03 - mmengine - INFO - Epoch(train)  [2][100/781]  lr: 8.9279e-04  eta: 1:18:12  time: 0.2372  data_time: 0.0018  memory: 3180  loss: 0.5937  loss_cls: 0.2326  loss_bbox: 0.3594  loss_consist: 0.0016
+10/16 05:26:16 - mmengine - INFO - Epoch(train)  [2][150/781]  lr: 9.3784e-04  eta: 1:17:52  time: 0.2557  data_time: 0.0016  memory: 3180  loss: 0.6262  loss_cls: 0.2683  loss_bbox: 0.3566  loss_consist: 0.0013
+10/16 05:26:29 - mmengine - INFO - Epoch(train)  [2][200/781]  lr: 9.8288e-04  eta: 1:17:35  time: 0.2584  data_time: 0.0017  memory: 3180  loss: 0.6804  loss_cls: 0.2825  loss_bbox: 0.3951  loss_consist: 0.0028
+10/16 05:26:34 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:26:41 - mmengine - INFO - Epoch(train)  [2][250/781]  lr: 1.0000e-03  eta: 1:17:08  time: 0.2450  data_time: 0.0017  memory: 3180  loss: 0.6864  loss_cls: 0.2715  loss_bbox: 0.4124  loss_consist: 0.0025
+10/16 05:26:54 - mmengine - INFO - Epoch(train)  [2][300/781]  lr: 1.0000e-03  eta: 1:16:49  time: 0.2550  data_time: 0.0018  memory: 3180  loss: 0.6447  loss_cls: 0.2808  loss_bbox: 0.3628  loss_consist: 0.0011
+10/16 05:27:07 - mmengine - INFO - Epoch(train)  [2][350/781]  lr: 1.0000e-03  eta: 1:16:29  time: 0.2516  data_time: 0.0018  memory: 3180  loss: 0.7217  loss_cls: 0.2895  loss_bbox: 0.4282  loss_consist: 0.0040
+10/16 05:27:19 - mmengine - INFO - Epoch(train)  [2][400/781]  lr: 1.0000e-03  eta: 1:16:09  time: 0.2506  data_time: 0.0018  memory: 3180  loss: 0.7249  loss_cls: 0.2869  loss_bbox: 0.4360  loss_consist: 0.0021
+10/16 05:27:32 - mmengine - INFO - Epoch(train)  [2][450/781]  lr: 1.0000e-03  eta: 1:15:52  time: 0.2558  data_time: 0.0019  memory: 3180  loss: 0.7034  loss_cls: 0.2695  loss_bbox: 0.4328  loss_consist: 0.0011
+10/16 05:27:44 - mmengine - INFO - Epoch(train)  [2][500/781]  lr: 1.0000e-03  eta: 1:15:28  time: 0.2432  data_time: 0.0017  memory: 3180  loss: 0.6523  loss_cls: 0.2628  loss_bbox: 0.3876  loss_consist: 0.0019
+10/16 05:27:56 - mmengine - INFO - Epoch(train)  [2][550/781]  lr: 1.0000e-03  eta: 1:15:05  time: 0.2444  data_time: 0.0017  memory: 3180  loss: 0.6136  loss_cls: 0.2403  loss_bbox: 0.3719  loss_consist: 0.0014
+10/16 05:28:09 - mmengine - INFO - Epoch(train)  [2][600/781]  lr: 1.0000e-03  eta: 1:14:51  time: 0.2570  data_time: 0.0018  memory: 3180  loss: 0.6619  loss_cls: 0.2633  loss_bbox: 0.3973  loss_consist: 0.0013
+10/16 05:28:22 - mmengine - INFO - Epoch(train)  [2][650/781]  lr: 1.0000e-03  eta: 1:14:33  time: 0.2495  data_time: 0.0017  memory: 3180  loss: 0.6373  loss_cls: 0.2525  loss_bbox: 0.3835  loss_consist: 0.0013
+10/16 05:28:34 - mmengine - INFO - Epoch(train)  [2][700/781]  lr: 1.0000e-03  eta: 1:14:13  time: 0.2473  data_time: 0.0019  memory: 3180  loss: 0.6826  loss_cls: 0.2882  loss_bbox: 0.3921  loss_consist: 0.0023
+10/16 05:28:46 - mmengine - INFO - Epoch(train)  [2][750/781]  lr: 1.0000e-03  eta: 1:13:50  time: 0.2393  data_time: 0.0018  memory: 3180  loss: 0.6285  loss_cls: 0.2482  loss_bbox: 0.3784  loss_consist: 0.0018
+10/16 05:28:53 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:28:53 - mmengine - INFO - Saving checkpoint at 2 epochs
+10/16 05:29:07 - mmengine - INFO - Epoch(train)  [3][ 50/781]  lr: 1.0000e-03  eta: 1:13:22  time: 0.2521  data_time: 0.0037  memory: 3180  loss: 0.5333  loss_cls: 0.2187  loss_bbox: 0.3133  loss_consist: 0.0014
+10/16 05:29:19 - mmengine - INFO - Epoch(train)  [3][100/781]  lr: 1.0000e-03  eta: 1:13:03  time: 0.2440  data_time: 0.0018  memory: 3180  loss: 0.6220  loss_cls: 0.2454  loss_bbox: 0.3733  loss_consist: 0.0033
+10/16 05:29:32 - mmengine - INFO - Epoch(train)  [3][150/781]  lr: 1.0000e-03  eta: 1:12:49  time: 0.2550  data_time: 0.0017  memory: 3180  loss: 0.6851  loss_cls: 0.2839  loss_bbox: 0.3954  loss_consist: 0.0059
+10/16 05:29:45 - mmengine - INFO - Epoch(train)  [3][200/781]  lr: 1.0000e-03  eta: 1:12:33  time: 0.2490  data_time: 0.0016  memory: 3180  loss: 0.6530  loss_cls: 0.2689  loss_bbox: 0.3824  loss_consist: 0.0016
+10/16 05:29:57 - mmengine - INFO - Epoch(train)  [3][250/781]  lr: 1.0000e-03  eta: 1:12:15  time: 0.2452  data_time: 0.0018  memory: 3180  loss: 0.5746  loss_cls: 0.2344  loss_bbox: 0.3394  loss_consist: 0.0008
+10/16 05:30:09 - mmengine - INFO - Epoch(train)  [3][300/781]  lr: 1.0000e-03  eta: 1:12:00  time: 0.2508  data_time: 0.0019  memory: 3180  loss: 0.6261  loss_cls: 0.2474  loss_bbox: 0.3757  loss_consist: 0.0029
+10/16 05:30:22 - mmengine - INFO - Epoch(train)  [3][350/781]  lr: 1.0000e-03  eta: 1:11:44  time: 0.2499  data_time: 0.0017  memory: 3180  loss: 0.6879  loss_cls: 0.2702  loss_bbox: 0.4165  loss_consist: 0.0012
+10/16 05:30:35 - mmengine - INFO - Epoch(train)  [3][400/781]  lr: 1.0000e-03  eta: 1:11:34  time: 0.2615  data_time: 0.0019  memory: 3180  loss: 0.6165  loss_cls: 0.2464  loss_bbox: 0.3679  loss_consist: 0.0022
+10/16 05:30:44 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:30:47 - mmengine - INFO - Epoch(train)  [3][450/781]  lr: 1.0000e-03  eta: 1:11:19  time: 0.2509  data_time: 0.0018  memory: 3180  loss: 0.5855  loss_cls: 0.2241  loss_bbox: 0.3594  loss_consist: 0.0020
+10/16 05:31:00 - mmengine - INFO - Epoch(train)  [3][500/781]  lr: 1.0000e-03  eta: 1:11:02  time: 0.2452  data_time: 0.0017  memory: 3180  loss: 0.5988  loss_cls: 0.2323  loss_bbox: 0.3640  loss_consist: 0.0025
+10/16 05:31:12 - mmengine - INFO - Epoch(train)  [3][550/781]  lr: 1.0000e-03  eta: 1:10:49  time: 0.2543  data_time: 0.0019  memory: 3180  loss: 0.6468  loss_cls: 0.2435  loss_bbox: 0.4014  loss_consist: 0.0019
+10/16 05:31:26 - mmengine - INFO - Epoch(train)  [3][600/781]  lr: 1.0000e-03  eta: 1:10:39  time: 0.2626  data_time: 0.0017  memory: 3180  loss: 0.6424  loss_cls: 0.2547  loss_bbox: 0.3853  loss_consist: 0.0023
+10/16 05:31:38 - mmengine - INFO - Epoch(train)  [3][650/781]  lr: 1.0000e-03  eta: 1:10:23  time: 0.2478  data_time: 0.0016  memory: 3180  loss: 0.6405  loss_cls: 0.2472  loss_bbox: 0.3907  loss_consist: 0.0026
+10/16 05:31:50 - mmengine - INFO - Epoch(train)  [3][700/781]  lr: 1.0000e-03  eta: 1:10:08  time: 0.2491  data_time: 0.0019  memory: 3180  loss: 0.7025  loss_cls: 0.2745  loss_bbox: 0.4258  loss_consist: 0.0021
+10/16 05:32:03 - mmengine - INFO - Epoch(train)  [3][750/781]  lr: 1.0000e-03  eta: 1:09:52  time: 0.2475  data_time: 0.0018  memory: 3180  loss: 0.6052  loss_cls: 0.2516  loss_bbox: 0.3506  loss_consist: 0.0030
+10/16 05:32:11 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:32:11 - mmengine - INFO - Saving checkpoint at 3 epochs
+10/16 05:32:24 - mmengine - INFO - Epoch(train)  [4][ 50/781]  lr: 1.0000e-03  eta: 1:09:29  time: 0.2461  data_time: 0.0038  memory: 3180  loss: 0.5251  loss_cls: 0.2145  loss_bbox: 0.3098  loss_consist: 0.0009
+10/16 05:32:37 - mmengine - INFO - Epoch(train)  [4][100/781]  lr: 1.0000e-03  eta: 1:09:17  time: 0.2557  data_time: 0.0019  memory: 3180  loss: 0.6465  loss_cls: 0.2427  loss_bbox: 0.4032  loss_consist: 0.0007
+10/16 05:32:50 - mmengine - INFO - Epoch(train)  [4][150/781]  lr: 1.0000e-03  eta: 1:09:04  time: 0.2553  data_time: 0.0016  memory: 3180  loss: 0.5626  loss_cls: 0.2347  loss_bbox: 0.3267  loss_consist: 0.0012
+10/16 05:33:02 - mmengine - INFO - Epoch(train)  [4][200/781]  lr: 1.0000e-03  eta: 1:08:50  time: 0.2496  data_time: 0.0018  memory: 3180  loss: 0.5767  loss_cls: 0.2131  loss_bbox: 0.3627  loss_consist: 0.0009
+10/16 05:33:15 - mmengine - INFO - Epoch(train)  [4][250/781]  lr: 1.0000e-03  eta: 1:08:34  time: 0.2463  data_time: 0.0017  memory: 3180  loss: 0.6223  loss_cls: 0.2529  loss_bbox: 0.3681  loss_consist: 0.0014
+10/16 05:33:27 - mmengine - INFO - Epoch(train)  [4][300/781]  lr: 1.0000e-03  eta: 1:08:19  time: 0.2452  data_time: 0.0017  memory: 3180  loss: 0.6025  loss_cls: 0.2468  loss_bbox: 0.3543  loss_consist: 0.0013
+10/16 05:33:40 - mmengine - INFO - Epoch(train)  [4][350/781]  lr: 1.0000e-03  eta: 1:08:11  time: 0.2709  data_time: 0.0019  memory: 3180  loss: 0.5891  loss_cls: 0.2259  loss_bbox: 0.3617  loss_consist: 0.0015
+10/16 05:33:56 - mmengine - INFO - Epoch(train)  [4][400/781]  lr: 1.0000e-03  eta: 1:08:13  time: 0.3075  data_time: 0.0016  memory: 3180  loss: 0.5628  loss_cls: 0.2222  loss_bbox: 0.3392  loss_consist: 0.0014
+10/16 05:34:11 - mmengine - INFO - Epoch(train)  [4][450/781]  lr: 1.0000e-03  eta: 1:08:16  time: 0.3094  data_time: 0.0015  memory: 3180  loss: 0.5734  loss_cls: 0.2352  loss_bbox: 0.3369  loss_consist: 0.0013
+10/16 05:34:27 - mmengine - INFO - Epoch(train)  [4][500/781]  lr: 1.0000e-03  eta: 1:08:19  time: 0.3144  data_time: 0.0019  memory: 3180  loss: 0.6145  loss_cls: 0.2486  loss_bbox: 0.3650  loss_consist: 0.0009
+10/16 05:34:42 - mmengine - INFO - Epoch(train)  [4][550/781]  lr: 1.0000e-03  eta: 1:08:18  time: 0.3012  data_time: 0.0017  memory: 3180  loss: 0.6206  loss_cls: 0.2562  loss_bbox: 0.3621  loss_consist: 0.0023
+10/16 05:34:58 - mmengine - INFO - Epoch(train)  [4][600/781]  lr: 1.0000e-03  eta: 1:08:19  time: 0.3107  data_time: 0.0015  memory: 3180  loss: 0.5306  loss_cls: 0.2099  loss_bbox: 0.3194  loss_consist: 0.0013
+10/16 05:35:13 - mmengine - INFO - Epoch(train)  [4][650/781]  lr: 1.0000e-03  eta: 1:08:20  time: 0.3120  data_time: 0.0013  memory: 3180  loss: 0.5691  loss_cls: 0.2333  loss_bbox: 0.3332  loss_consist: 0.0025
+10/16 05:35:15 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:35:28 - mmengine - INFO - Epoch(train)  [4][700/781]  lr: 1.0000e-03  eta: 1:08:17  time: 0.3006  data_time: 0.0016  memory: 3180  loss: 0.6253  loss_cls: 0.2391  loss_bbox: 0.3847  loss_consist: 0.0015
+10/16 05:35:44 - mmengine - INFO - Epoch(train)  [4][750/781]  lr: 1.0000e-03  eta: 1:08:16  time: 0.3089  data_time: 0.0016  memory: 3180  loss: 0.6378  loss_cls: 0.2474  loss_bbox: 0.3889  loss_consist: 0.0015
+10/16 05:35:53 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:35:53 - mmengine - INFO - Saving checkpoint at 4 epochs
+10/16 05:36:10 - mmengine - INFO - Epoch(train)  [5][ 50/781]  lr: 1.0000e-03  eta: 1:08:13  time: 0.3131  data_time: 0.0018  memory: 3180  loss: 0.5069  loss_cls: 0.2488  loss_bbox: 0.2567  loss_consist: 0.0014
+10/16 05:36:25 - mmengine - INFO - Epoch(train)  [5][100/781]  lr: 1.0000e-03  eta: 1:08:09  time: 0.3015  data_time: 0.0016  memory: 3179  loss: 0.5116  loss_cls: 0.2367  loss_bbox: 0.2732  loss_consist: 0.0016
+10/16 05:36:40 - mmengine - INFO - Epoch(train)  [5][150/781]  lr: 1.0000e-03  eta: 1:08:08  time: 0.3140  data_time: 0.0016  memory: 3179  loss: 0.5266  loss_cls: 0.2575  loss_bbox: 0.2681  loss_consist: 0.0010
+10/16 05:36:56 - mmengine - INFO - Epoch(train)  [5][200/781]  lr: 1.0000e-03  eta: 1:08:05  time: 0.3083  data_time: 0.0018  memory: 3179  loss: 0.5252  loss_cls: 0.2493  loss_bbox: 0.2745  loss_consist: 0.0014
+10/16 05:37:11 - mmengine - INFO - Epoch(train)  [5][250/781]  lr: 1.0000e-03  eta: 1:08:02  time: 0.3081  data_time: 0.0017  memory: 3179  loss: 0.5789  loss_cls: 0.2764  loss_bbox: 0.3012  loss_consist: 0.0013
+10/16 05:37:27 - mmengine - INFO - Epoch(train)  [5][300/781]  lr: 1.0000e-03  eta: 1:07:58  time: 0.3093  data_time: 0.0016  memory: 3179  loss: 0.5218  loss_cls: 0.2561  loss_bbox: 0.2649  loss_consist: 0.0009
+10/16 05:37:42 - mmengine - INFO - Epoch(train)  [5][350/781]  lr: 1.0000e-03  eta: 1:07:55  time: 0.3120  data_time: 0.0016  memory: 3179  loss: 0.5185  loss_cls: 0.2317  loss_bbox: 0.2844  loss_consist: 0.0023
+10/16 05:37:58 - mmengine - INFO - Epoch(train)  [5][400/781]  lr: 1.0000e-03  eta: 1:07:50  time: 0.3055  data_time: 0.0019  memory: 3179  loss: 0.5510  loss_cls: 0.2712  loss_bbox: 0.2764  loss_consist: 0.0034
+10/16 05:38:13 - mmengine - INFO - Epoch(train)  [5][450/781]  lr: 1.0000e-03  eta: 1:07:45  time: 0.3078  data_time: 0.0016  memory: 3179  loss: 0.5572  loss_cls: 0.2679  loss_bbox: 0.2873  loss_consist: 0.0020
+10/16 05:38:29 - mmengine - INFO - Epoch(train)  [5][500/781]  lr: 1.0000e-03  eta: 1:07:42  time: 0.3149  data_time: 0.0014  memory: 3179  loss: 0.5612  loss_cls: 0.2619  loss_bbox: 0.2985  loss_consist: 0.0007
+10/16 05:38:44 - mmengine - INFO - Epoch(train)  [5][550/781]  lr: 1.0000e-03  eta: 1:07:37  time: 0.3093  data_time: 0.0016  memory: 3179  loss: 0.5021  loss_cls: 0.2429  loss_bbox: 0.2576  loss_consist: 0.0016
+10/16 05:39:00 - mmengine - INFO - Epoch(train)  [5][600/781]  lr: 1.0000e-03  eta: 1:07:31  time: 0.3078  data_time: 0.0015  memory: 3179  loss: 0.5005  loss_cls: 0.2342  loss_bbox: 0.2652  loss_consist: 0.0010
+10/16 05:39:15 - mmengine - INFO - Epoch(train)  [5][650/781]  lr: 1.0000e-03  eta: 1:07:24  time: 0.3029  data_time: 0.0018  memory: 3179  loss: 0.4413  loss_cls: 0.1888  loss_bbox: 0.2516  loss_consist: 0.0009
+10/16 05:39:31 - mmengine - INFO - Epoch(train)  [5][700/781]  lr: 1.0000e-03  eta: 1:07:20  time: 0.3185  data_time: 0.0016  memory: 3179  loss: 0.4865  loss_cls: 0.2258  loss_bbox: 0.2594  loss_consist: 0.0014
+10/16 05:39:46 - mmengine - INFO - Epoch(train)  [5][750/781]  lr: 1.0000e-03  eta: 1:07:14  time: 0.3102  data_time: 0.0012  memory: 3179  loss: 0.5756  loss_cls: 0.2901  loss_bbox: 0.2827  loss_consist: 0.0029
+10/16 05:39:56 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:39:56 - mmengine - INFO - Saving checkpoint at 5 epochs
+10/16 05:40:13 - mmengine - INFO - Epoch(train)  [6][ 50/781]  lr: 1.0000e-03  eta: 1:07:06  time: 0.3143  data_time: 0.0037  memory: 3179  loss: 0.5138  loss_cls: 0.2463  loss_bbox: 0.2662  loss_consist: 0.0013
+10/16 05:40:26 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:40:28 - mmengine - INFO - Epoch(train)  [6][100/781]  lr: 1.0000e-03  eta: 1:06:57  time: 0.2986  data_time: 0.0017  memory: 3179  loss: 0.5387  loss_cls: 0.2420  loss_bbox: 0.2948  loss_consist: 0.0018
+10/16 05:40:43 - mmengine - INFO - Epoch(train)  [6][150/781]  lr: 1.0000e-03  eta: 1:06:50  time: 0.3093  data_time: 0.0016  memory: 3179  loss: 0.4994  loss_cls: 0.2279  loss_bbox: 0.2696  loss_consist: 0.0018
+10/16 05:40:59 - mmengine - INFO - Epoch(train)  [6][200/781]  lr: 1.0000e-03  eta: 1:06:45  time: 0.3200  data_time: 0.0017  memory: 3179  loss: 0.6050  loss_cls: 0.2959  loss_bbox: 0.3066  loss_consist: 0.0026
+10/16 05:41:15 - mmengine - INFO - Epoch(train)  [6][250/781]  lr: 1.0000e-03  eta: 1:06:38  time: 0.3147  data_time: 0.0018  memory: 3179  loss: 0.4834  loss_cls: 0.2118  loss_bbox: 0.2709  loss_consist: 0.0007
+10/16 05:41:31 - mmengine - INFO - Epoch(train)  [6][300/781]  lr: 1.0000e-03  eta: 1:06:33  time: 0.3261  data_time: 0.0019  memory: 3179  loss: 0.5004  loss_cls: 0.2391  loss_bbox: 0.2603  loss_consist: 0.0010
+10/16 05:41:47 - mmengine - INFO - Epoch(train)  [6][350/781]  lr: 1.0000e-03  eta: 1:06:26  time: 0.3090  data_time: 0.0020  memory: 3179  loss: 0.5241  loss_cls: 0.2650  loss_bbox: 0.2576  loss_consist: 0.0015
+10/16 05:42:02 - mmengine - INFO - Epoch(train)  [6][400/781]  lr: 1.0000e-03  eta: 1:06:18  time: 0.3098  data_time: 0.0010  memory: 3179  loss: 0.4632  loss_cls: 0.1913  loss_bbox: 0.2708  loss_consist: 0.0011
+10/16 05:42:18 - mmengine - INFO - Epoch(train)  [6][450/781]  lr: 1.0000e-03  eta: 1:06:09  time: 0.3073  data_time: 0.0015  memory: 3179  loss: 0.4528  loss_cls: 0.2019  loss_bbox: 0.2499  loss_consist: 0.0010
+10/16 05:42:33 - mmengine - INFO - Epoch(train)  [6][500/781]  lr: 1.0000e-03  eta: 1:06:00  time: 0.3021  data_time: 0.0017  memory: 3179  loss: 0.4701  loss_cls: 0.2027  loss_bbox: 0.2659  loss_consist: 0.0015
+10/16 05:42:48 - mmengine - INFO - Epoch(train)  [6][550/781]  lr: 1.0000e-03  eta: 1:05:52  time: 0.3123  data_time: 0.0016  memory: 3179  loss: 0.4609  loss_cls: 0.1991  loss_bbox: 0.2609  loss_consist: 0.0010
+10/16 05:43:04 - mmengine - INFO - Epoch(train)  [6][600/781]  lr: 1.0000e-03  eta: 1:05:43  time: 0.3124  data_time: 0.0017  memory: 3179  loss: 0.5242  loss_cls: 0.2660  loss_bbox: 0.2570  loss_consist: 0.0012
+10/16 05:43:20 - mmengine - INFO - Epoch(train)  [6][650/781]  lr: 1.0000e-03  eta: 1:05:35  time: 0.3135  data_time: 0.0016  memory: 3179  loss: 0.5161  loss_cls: 0.2385  loss_bbox: 0.2767  loss_consist: 0.0009
+10/16 05:43:35 - mmengine - INFO - Epoch(train)  [6][700/781]  lr: 1.0000e-03  eta: 1:05:25  time: 0.3035  data_time: 0.0014  memory: 3179  loss: 0.4765  loss_cls: 0.2065  loss_bbox: 0.2690  loss_consist: 0.0009
+10/16 05:43:51 - mmengine - INFO - Epoch(train)  [6][750/781]  lr: 1.0000e-03  eta: 1:05:17  time: 0.3139  data_time: 0.0019  memory: 3179  loss: 0.5483  loss_cls: 0.2445  loss_bbox: 0.3026  loss_consist: 0.0013
+10/16 05:44:00 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:44:00 - mmengine - INFO - Saving checkpoint at 6 epochs
+10/16 05:44:17 - mmengine - INFO - Epoch(train)  [7][ 50/781]  lr: 1.0000e-03  eta: 1:05:02  time: 0.3079  data_time: 0.0025  memory: 3179  loss: 0.4783  loss_cls: 0.2199  loss_bbox: 0.2578  loss_consist: 0.0006
+10/16 05:44:32 - mmengine - INFO - Epoch(train)  [7][100/781]  lr: 1.0000e-03  eta: 1:04:53  time: 0.3148  data_time: 0.0015  memory: 3179  loss: 0.4274  loss_cls: 0.1907  loss_bbox: 0.2359  loss_consist: 0.0008
+10/16 05:44:48 - mmengine - INFO - Epoch(train)  [7][150/781]  lr: 1.0000e-03  eta: 1:04:44  time: 0.3155  data_time: 0.0012  memory: 3179  loss: 0.5349  loss_cls: 0.2482  loss_bbox: 0.2843  loss_consist: 0.0024
+10/16 05:45:03 - mmengine - INFO - Epoch(train)  [7][200/781]  lr: 1.0000e-03  eta: 1:04:34  time: 0.3080  data_time: 0.0019  memory: 3179  loss: 0.4814  loss_cls: 0.2193  loss_bbox: 0.2614  loss_consist: 0.0007
+10/16 05:45:19 - mmengine - INFO - Epoch(train)  [7][250/781]  lr: 1.0000e-03  eta: 1:04:24  time: 0.3070  data_time: 0.0014  memory: 3179  loss: 0.4273  loss_cls: 0.1888  loss_bbox: 0.2368  loss_consist: 0.0017
+10/16 05:45:35 - mmengine - INFO - Epoch(train)  [7][300/781]  lr: 1.0000e-03  eta: 1:04:15  time: 0.3160  data_time: 0.0010  memory: 3179  loss: 0.5274  loss_cls: 0.2442  loss_bbox: 0.2818  loss_consist: 0.0014
+10/16 05:45:39 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:45:50 - mmengine - INFO - Epoch(train)  [7][350/781]  lr: 1.0000e-03  eta: 1:04:04  time: 0.3035  data_time: 0.0017  memory: 3179  loss: 0.4675  loss_cls: 0.1909  loss_bbox: 0.2757  loss_consist: 0.0008
+10/16 05:46:05 - mmengine - INFO - Epoch(train)  [7][400/781]  lr: 1.0000e-03  eta: 1:03:53  time: 0.3038  data_time: 0.0016  memory: 3179  loss: 0.4574  loss_cls: 0.2036  loss_bbox: 0.2529  loss_consist: 0.0010
+10/16 05:46:21 - mmengine - INFO - Epoch(train)  [7][450/781]  lr: 1.0000e-03  eta: 1:03:44  time: 0.3137  data_time: 0.0015  memory: 3179  loss: 0.4381  loss_cls: 0.1933  loss_bbox: 0.2441  loss_consist: 0.0008
+10/16 05:46:37 - mmengine - INFO - Epoch(train)  [7][500/781]  lr: 1.0000e-03  eta: 1:03:36  time: 0.3257  data_time: 0.0016  memory: 3179  loss: 0.4850  loss_cls: 0.2230  loss_bbox: 0.2607  loss_consist: 0.0014
+10/16 05:46:52 - mmengine - INFO - Epoch(train)  [7][550/781]  lr: 1.0000e-03  eta: 1:03:25  time: 0.3090  data_time: 0.0020  memory: 3179  loss: 0.4419  loss_cls: 0.1991  loss_bbox: 0.2417  loss_consist: 0.0012
+10/16 05:47:08 - mmengine - INFO - Epoch(train)  [7][600/781]  lr: 1.0000e-03  eta: 1:03:15  time: 0.3137  data_time: 0.0014  memory: 3179  loss: 0.4506  loss_cls: 0.1883  loss_bbox: 0.2607  loss_consist: 0.0016
+10/16 05:47:24 - mmengine - INFO - Epoch(train)  [7][650/781]  lr: 1.0000e-03  eta: 1:03:06  time: 0.3191  data_time: 0.0013  memory: 3179  loss: 0.4256  loss_cls: 0.1804  loss_bbox: 0.2442  loss_consist: 0.0009
+10/16 05:47:40 - mmengine - INFO - Epoch(train)  [7][700/781]  lr: 1.0000e-03  eta: 1:02:56  time: 0.3223  data_time: 0.0017  memory: 3179  loss: 0.5412  loss_cls: 0.2553  loss_bbox: 0.2850  loss_consist: 0.0008
+10/16 05:47:56 - mmengine - INFO - Epoch(train)  [7][750/781]  lr: 1.0000e-03  eta: 1:02:46  time: 0.3120  data_time: 0.0018  memory: 3179  loss: 0.5451  loss_cls: 0.2651  loss_bbox: 0.2785  loss_consist: 0.0014
+10/16 05:48:05 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:48:05 - mmengine - INFO - Saving checkpoint at 7 epochs
+10/16 05:48:22 - mmengine - INFO - Epoch(train)  [8][ 50/781]  lr: 1.0000e-03  eta: 1:02:28  time: 0.3130  data_time: 0.0032  memory: 3179  loss: 0.4702  loss_cls: 0.2018  loss_bbox: 0.2673  loss_consist: 0.0011
+10/16 05:48:37 - mmengine - INFO - Epoch(train)  [8][100/781]  lr: 1.0000e-03  eta: 1:02:17  time: 0.3095  data_time: 0.0016  memory: 3179  loss: 0.5052  loss_cls: 0.2396  loss_bbox: 0.2644  loss_consist: 0.0011
+10/16 05:48:53 - mmengine - INFO - Epoch(train)  [8][150/781]  lr: 1.0000e-03  eta: 1:02:07  time: 0.3157  data_time: 0.0015  memory: 3179  loss: 0.4884  loss_cls: 0.2350  loss_bbox: 0.2522  loss_consist: 0.0012
+10/16 05:49:09 - mmengine - INFO - Epoch(train)  [8][200/781]  lr: 1.0000e-03  eta: 1:01:56  time: 0.3173  data_time: 0.0015  memory: 3179  loss: 0.5010  loss_cls: 0.2140  loss_bbox: 0.2864  loss_consist: 0.0006
+10/16 05:49:25 - mmengine - INFO - Epoch(train)  [8][250/781]  lr: 1.0000e-03  eta: 1:01:45  time: 0.3137  data_time: 0.0019  memory: 3179  loss: 0.5595  loss_cls: 0.2834  loss_bbox: 0.2755  loss_consist: 0.0006
+10/16 05:49:40 - mmengine - INFO - Epoch(train)  [8][300/781]  lr: 1.0000e-03  eta: 1:01:34  time: 0.3047  data_time: 0.0013  memory: 3179  loss: 0.4370  loss_cls: 0.1918  loss_bbox: 0.2446  loss_consist: 0.0006
+10/16 05:49:55 - mmengine - INFO - Epoch(train)  [8][350/781]  lr: 1.0000e-03  eta: 1:01:22  time: 0.3101  data_time: 0.0012  memory: 3179  loss: 0.4711  loss_cls: 0.2099  loss_bbox: 0.2603  loss_consist: 0.0009
+10/16 05:50:11 - mmengine - INFO - Epoch(train)  [8][400/781]  lr: 1.0000e-03  eta: 1:01:10  time: 0.3070  data_time: 0.0016  memory: 3179  loss: 0.4809  loss_cls: 0.2041  loss_bbox: 0.2761  loss_consist: 0.0007
+10/16 05:50:27 - mmengine - INFO - Epoch(train)  [8][450/781]  lr: 1.0000e-03  eta: 1:01:00  time: 0.3210  data_time: 0.0019  memory: 3179  loss: 0.5053  loss_cls: 0.2251  loss_bbox: 0.2795  loss_consist: 0.0006
+10/16 05:50:42 - mmengine - INFO - Epoch(train)  [8][500/781]  lr: 1.0000e-03  eta: 1:00:49  time: 0.3131  data_time: 0.0015  memory: 3179  loss: 0.4921  loss_cls: 0.2190  loss_bbox: 0.2719  loss_consist: 0.0012
+10/16 05:50:53 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:50:58 - mmengine - INFO - Epoch(train)  [8][550/781]  lr: 1.0000e-03  eta: 1:00:38  time: 0.3169  data_time: 0.0013  memory: 3179  loss: 0.5137  loss_cls: 0.2245  loss_bbox: 0.2880  loss_consist: 0.0012
+10/16 05:51:14 - mmengine - INFO - Epoch(train)  [8][600/781]  lr: 1.0000e-03  eta: 1:00:27  time: 0.3194  data_time: 0.0015  memory: 3179  loss: 0.4784  loss_cls: 0.2090  loss_bbox: 0.2684  loss_consist: 0.0010
+10/16 05:51:30 - mmengine - INFO - Epoch(train)  [8][650/781]  lr: 1.0000e-03  eta: 1:00:15  time: 0.3091  data_time: 0.0014  memory: 3179  loss: 0.5045  loss_cls: 0.2279  loss_bbox: 0.2759  loss_consist: 0.0007
+10/16 05:51:45 - mmengine - INFO - Epoch(train)  [8][700/781]  lr: 1.0000e-03  eta: 1:00:03  time: 0.3082  data_time: 0.0019  memory: 3179  loss: 0.4489  loss_cls: 0.1868  loss_bbox: 0.2611  loss_consist: 0.0010
+10/16 05:52:01 - mmengine - INFO - Epoch(train)  [8][750/781]  lr: 1.0000e-03  eta: 0:59:51  time: 0.3094  data_time: 0.0012  memory: 3179  loss: 0.4550  loss_cls: 0.1883  loss_bbox: 0.2653  loss_consist: 0.0015
+10/16 05:52:11 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:52:11 - mmengine - INFO - Saving checkpoint at 8 epochs
+10/16 05:52:28 - mmengine - INFO - Epoch(train)  [9][ 50/781]  lr: 1.0000e-03  eta: 0:59:33  time: 0.3204  data_time: 0.0025  memory: 3179  loss: 0.4319  loss_cls: 0.1928  loss_bbox: 0.2383  loss_consist: 0.0008
+10/16 05:52:43 - mmengine - INFO - Epoch(train)  [9][100/781]  lr: 1.0000e-03  eta: 0:59:21  time: 0.3100  data_time: 0.0017  memory: 3179  loss: 0.4537  loss_cls: 0.1909  loss_bbox: 0.2623  loss_consist: 0.0005
+10/16 05:52:58 - mmengine - INFO - Epoch(train)  [9][150/781]  lr: 1.0000e-03  eta: 0:59:08  time: 0.3033  data_time: 0.0016  memory: 3179  loss: 0.4540  loss_cls: 0.1938  loss_bbox: 0.2593  loss_consist: 0.0009
+10/16 05:53:14 - mmengine - INFO - Epoch(train)  [9][200/781]  lr: 1.0000e-03  eta: 0:58:57  time: 0.3172  data_time: 0.0012  memory: 3179  loss: 0.5070  loss_cls: 0.2301  loss_bbox: 0.2749  loss_consist: 0.0020
+10/16 05:53:30 - mmengine - INFO - Epoch(train)  [9][250/781]  lr: 1.0000e-03  eta: 0:58:44  time: 0.3053  data_time: 0.0014  memory: 3179  loss: 0.4455  loss_cls: 0.1935  loss_bbox: 0.2512  loss_consist: 0.0008
+10/16 05:53:46 - mmengine - INFO - Epoch(train)  [9][300/781]  lr: 1.0000e-03  eta: 0:58:33  time: 0.3226  data_time: 0.0016  memory: 3179  loss: 0.4894  loss_cls: 0.1991  loss_bbox: 0.2896  loss_consist: 0.0007
+10/16 05:54:01 - mmengine - INFO - Epoch(train)  [9][350/781]  lr: 1.0000e-03  eta: 0:58:21  time: 0.3094  data_time: 0.0020  memory: 3179  loss: 0.4562  loss_cls: 0.2033  loss_bbox: 0.2522  loss_consist: 0.0007
+10/16 05:54:17 - mmengine - INFO - Epoch(train)  [9][400/781]  lr: 1.0000e-03  eta: 0:58:08  time: 0.3103  data_time: 0.0016  memory: 3179  loss: 0.4674  loss_cls: 0.2219  loss_bbox: 0.2445  loss_consist: 0.0010
+10/16 05:54:32 - mmengine - INFO - Epoch(train)  [9][450/781]  lr: 1.0000e-03  eta: 0:57:56  time: 0.3154  data_time: 0.0018  memory: 3179  loss: 0.4762  loss_cls: 0.2131  loss_bbox: 0.2622  loss_consist: 0.0009
+10/16 05:54:49 - mmengine - INFO - Epoch(train)  [9][500/781]  lr: 1.0000e-03  eta: 0:57:45  time: 0.3243  data_time: 0.0019  memory: 3179  loss: 0.4369  loss_cls: 0.1860  loss_bbox: 0.2504  loss_consist: 0.0006
+10/16 05:55:04 - mmengine - INFO - Epoch(train)  [9][550/781]  lr: 1.0000e-03  eta: 0:57:32  time: 0.3087  data_time: 0.0017  memory: 3179  loss: 0.4953  loss_cls: 0.2236  loss_bbox: 0.2704  loss_consist: 0.0013
+10/16 05:55:20 - mmengine - INFO - Epoch(train)  [9][600/781]  lr: 1.0000e-03  eta: 0:57:20  time: 0.3119  data_time: 0.0018  memory: 3179  loss: 0.4561  loss_cls: 0.1779  loss_bbox: 0.2775  loss_consist: 0.0006
+10/16 05:55:36 - mmengine - INFO - Epoch(train)  [9][650/781]  lr: 1.0000e-03  eta: 0:57:08  time: 0.3169  data_time: 0.0017  memory: 3179  loss: 0.4503  loss_cls: 0.2052  loss_bbox: 0.2443  loss_consist: 0.0008
+10/16 05:55:51 - mmengine - INFO - Epoch(train)  [9][700/781]  lr: 1.0000e-03  eta: 0:56:55  time: 0.3134  data_time: 0.0013  memory: 3179  loss: 0.4526  loss_cls: 0.2043  loss_bbox: 0.2476  loss_consist: 0.0007
+10/16 05:56:07 - mmengine - INFO - Epoch(train)  [9][750/781]  lr: 1.0000e-03  eta: 0:56:42  time: 0.3099  data_time: 0.0018  memory: 3179  loss: 0.4982  loss_cls: 0.2429  loss_bbox: 0.2545  loss_consist: 0.0008
+10/16 05:56:07 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:56:16 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 05:56:16 - mmengine - INFO - Saving checkpoint at 9 epochs
+10/16 05:56:33 - mmengine - INFO - Epoch(train) [10][ 50/781]  lr: 1.0000e-03  eta: 0:56:22  time: 0.3108  data_time: 0.0036  memory: 3179  loss: 0.4252  loss_cls: 0.1756  loss_bbox: 0.2487  loss_consist: 0.0008
+10/16 05:56:49 - mmengine - INFO - Epoch(train) [10][100/781]  lr: 1.0000e-03  eta: 0:56:09  time: 0.3163  data_time: 0.0017  memory: 3179  loss: 0.4136  loss_cls: 0.1706  loss_bbox: 0.2420  loss_consist: 0.0010
+10/16 05:57:04 - mmengine - INFO - Epoch(train) [10][150/781]  lr: 1.0000e-03  eta: 0:55:56  time: 0.3048  data_time: 0.0025  memory: 3179  loss: 0.4079  loss_cls: 0.1594  loss_bbox: 0.2479  loss_consist: 0.0006
+10/16 05:57:20 - mmengine - INFO - Epoch(train) [10][200/781]  lr: 1.0000e-03  eta: 0:55:43  time: 0.3148  data_time: 0.0011  memory: 3179  loss: 0.4508  loss_cls: 0.1841  loss_bbox: 0.2655  loss_consist: 0.0013
+10/16 05:57:35 - mmengine - INFO - Epoch(train) [10][250/781]  lr: 1.0000e-03  eta: 0:55:30  time: 0.3090  data_time: 0.0010  memory: 3179  loss: 0.4904  loss_cls: 0.2168  loss_bbox: 0.2679  loss_consist: 0.0057
+10/16 05:57:51 - mmengine - INFO - Epoch(train) [10][300/781]  lr: 1.0000e-03  eta: 0:55:18  time: 0.3162  data_time: 0.0020  memory: 3179  loss: 0.4597  loss_cls: 0.2040  loss_bbox: 0.2551  loss_consist: 0.0006
+10/16 05:58:07 - mmengine - INFO - Epoch(train) [10][350/781]  lr: 1.0000e-03  eta: 0:55:05  time: 0.3192  data_time: 0.0014  memory: 3179  loss: 0.4937  loss_cls: 0.2276  loss_bbox: 0.2649  loss_consist: 0.0012
+10/16 05:58:23 - mmengine - INFO - Epoch(train) [10][400/781]  lr: 1.0000e-03  eta: 0:54:53  time: 0.3176  data_time: 0.0019  memory: 3179  loss: 0.5276  loss_cls: 0.2431  loss_bbox: 0.2832  loss_consist: 0.0014
+10/16 05:58:38 - mmengine - INFO - Epoch(train) [10][450/781]  lr: 1.0000e-03  eta: 0:54:40  time: 0.3075  data_time: 0.0016  memory: 3179  loss: 0.4352  loss_cls: 0.1901  loss_bbox: 0.2446  loss_consist: 0.0005
+10/16 05:58:53 - mmengine - INFO - Epoch(train) [10][500/781]  lr: 1.0000e-03  eta: 0:54:26  time: 0.3070  data_time: 0.0020  memory: 3179  loss: 0.4791  loss_cls: 0.1833  loss_bbox: 0.2949  loss_consist: 0.0008
+10/16 05:59:09 - mmengine - INFO - Epoch(train) [10][550/781]  lr: 1.0000e-03  eta: 0:54:13  time: 0.3113  data_time: 0.0018  memory: 3179  loss: 0.4079  loss_cls: 0.1627  loss_bbox: 0.2442  loss_consist: 0.0010
+10/16 05:59:25 - mmengine - INFO - Epoch(train) [10][600/781]  lr: 1.0000e-03  eta: 0:54:00  time: 0.3137  data_time: 0.0016  memory: 3179  loss: 0.4244  loss_cls: 0.1742  loss_bbox: 0.2495  loss_consist: 0.0007
+10/16 05:59:41 - mmengine - INFO - Epoch(train) [10][650/781]  lr: 1.0000e-03  eta: 0:53:48  time: 0.3180  data_time: 0.0019  memory: 3179  loss: 0.4700  loss_cls: 0.2086  loss_bbox: 0.2604  loss_consist: 0.0010
+10/16 05:59:56 - mmengine - INFO - Epoch(train) [10][700/781]  lr: 1.0000e-03  eta: 0:53:35  time: 0.3176  data_time: 0.0015  memory: 3179  loss: 0.4911  loss_cls: 0.2381  loss_bbox: 0.2521  loss_consist: 0.0009
+10/16 06:00:12 - mmengine - INFO - Epoch(train) [10][750/781]  lr: 1.0000e-03  eta: 0:53:22  time: 0.3143  data_time: 0.0018  memory: 3179  loss: 0.4340  loss_cls: 0.1849  loss_bbox: 0.2485  loss_consist: 0.0007
+10/16 06:00:21 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:00:21 - mmengine - INFO - Saving checkpoint at 10 epochs
+10/16 06:00:38 - mmengine - INFO - Epoch(train) [11][ 50/781]  lr: 1.0000e-03  eta: 0:53:00  time: 0.3103  data_time: 0.0026  memory: 3179  loss: 0.4607  loss_cls: 0.2007  loss_bbox: 0.2594  loss_consist: 0.0006
+10/16 06:00:54 - mmengine - INFO - Epoch(train) [11][100/781]  lr: 1.0000e-03  eta: 0:52:46  time: 0.3110  data_time: 0.0021  memory: 3179  loss: 0.4755  loss_cls: 0.2153  loss_bbox: 0.2591  loss_consist: 0.0011
+10/16 06:01:10 - mmengine - INFO - Epoch(train) [11][150/781]  lr: 1.0000e-03  eta: 0:52:33  time: 0.3179  data_time: 0.0019  memory: 3179  loss: 0.4985  loss_cls: 0.2281  loss_bbox: 0.2696  loss_consist: 0.0008
+10/16 06:01:22 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:01:25 - mmengine - INFO - Epoch(train) [11][200/781]  lr: 1.0000e-03  eta: 0:52:21  time: 0.3182  data_time: 0.0019  memory: 3179  loss: 0.4497  loss_cls: 0.1870  loss_bbox: 0.2623  loss_consist: 0.0005
+10/16 06:01:41 - mmengine - INFO - Epoch(train) [11][250/781]  lr: 1.0000e-03  eta: 0:52:07  time: 0.3065  data_time: 0.0017  memory: 3179  loss: 0.4163  loss_cls: 0.1767  loss_bbox: 0.2386  loss_consist: 0.0010
+10/16 06:01:56 - mmengine - INFO - Epoch(train) [11][300/781]  lr: 1.0000e-03  eta: 0:51:54  time: 0.3121  data_time: 0.0013  memory: 3179  loss: 0.4474  loss_cls: 0.1845  loss_bbox: 0.2624  loss_consist: 0.0006
+10/16 06:02:12 - mmengine - INFO - Epoch(train) [11][350/781]  lr: 1.0000e-03  eta: 0:51:40  time: 0.3162  data_time: 0.0016  memory: 3179  loss: 0.4064  loss_cls: 0.1733  loss_bbox: 0.2323  loss_consist: 0.0007
+10/16 06:02:28 - mmengine - INFO - Epoch(train) [11][400/781]  lr: 1.0000e-03  eta: 0:51:28  time: 0.3216  data_time: 0.0012  memory: 3179  loss: 0.4239  loss_cls: 0.1829  loss_bbox: 0.2403  loss_consist: 0.0007
+10/16 06:02:44 - mmengine - INFO - Epoch(train) [11][450/781]  lr: 1.0000e-03  eta: 0:51:14  time: 0.3145  data_time: 0.0017  memory: 3179  loss: 0.4699  loss_cls: 0.1885  loss_bbox: 0.2790  loss_consist: 0.0024
+10/16 06:02:59 - mmengine - INFO - Epoch(train) [11][500/781]  lr: 1.0000e-03  eta: 0:51:00  time: 0.3068  data_time: 0.0016  memory: 3179  loss: 0.4679  loss_cls: 0.2085  loss_bbox: 0.2587  loss_consist: 0.0008
+10/16 06:03:16 - mmengine - INFO - Epoch(train) [11][550/781]  lr: 1.0000e-03  eta: 0:50:48  time: 0.3264  data_time: 0.0017  memory: 3179  loss: 0.4810  loss_cls: 0.2284  loss_bbox: 0.2514  loss_consist: 0.0012
+10/16 06:03:31 - mmengine - INFO - Epoch(train) [11][600/781]  lr: 1.0000e-03  eta: 0:50:34  time: 0.3123  data_time: 0.0017  memory: 3179  loss: 0.4989  loss_cls: 0.2154  loss_bbox: 0.2829  loss_consist: 0.0006
+10/16 06:03:47 - mmengine - INFO - Epoch(train) [11][650/781]  lr: 1.0000e-03  eta: 0:50:21  time: 0.3109  data_time: 0.0014  memory: 3179  loss: 0.4751  loss_cls: 0.1997  loss_bbox: 0.2747  loss_consist: 0.0008
+10/16 06:04:02 - mmengine - INFO - Epoch(train) [11][700/781]  lr: 1.0000e-03  eta: 0:50:07  time: 0.3037  data_time: 0.0016  memory: 3179  loss: 0.4649  loss_cls: 0.1989  loss_bbox: 0.2654  loss_consist: 0.0006
+10/16 06:04:18 - mmengine - INFO - Epoch(train) [11][750/781]  lr: 1.0000e-03  eta: 0:49:53  time: 0.3105  data_time: 0.0012  memory: 3179  loss: 0.4135  loss_cls: 0.1757  loss_bbox: 0.2370  loss_consist: 0.0007
+10/16 06:04:27 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:04:27 - mmengine - INFO - Saving checkpoint at 11 epochs
+10/16 06:04:44 - mmengine - INFO - Epoch(train) [12][ 50/781]  lr: 1.0000e-03  eta: 0:49:31  time: 0.3132  data_time: 0.0023  memory: 3179  loss: 0.4384  loss_cls: 0.1821  loss_bbox: 0.2557  loss_consist: 0.0007
+10/16 06:04:59 - mmengine - INFO - Epoch(train) [12][100/781]  lr: 1.0000e-03  eta: 0:49:17  time: 0.3076  data_time: 0.0013  memory: 3179  loss: 0.4122  loss_cls: 0.1557  loss_bbox: 0.2557  loss_consist: 0.0008
+10/16 06:05:15 - mmengine - INFO - Epoch(train) [12][150/781]  lr: 1.0000e-03  eta: 0:49:03  time: 0.3122  data_time: 0.0015  memory: 3179  loss: 0.4751  loss_cls: 0.2265  loss_bbox: 0.2480  loss_consist: 0.0007
+10/16 06:05:30 - mmengine - INFO - Epoch(train) [12][200/781]  lr: 1.0000e-03  eta: 0:48:49  time: 0.3050  data_time: 0.0014  memory: 3179  loss: 0.4777  loss_cls: 0.2109  loss_bbox: 0.2664  loss_consist: 0.0004
+10/16 06:05:46 - mmengine - INFO - Epoch(train) [12][250/781]  lr: 1.0000e-03  eta: 0:48:36  time: 0.3198  data_time: 0.0017  memory: 3179  loss: 0.4097  loss_cls: 0.1792  loss_bbox: 0.2299  loss_consist: 0.0006
+10/16 06:06:02 - mmengine - INFO - Epoch(train) [12][300/781]  lr: 1.0000e-03  eta: 0:48:22  time: 0.3150  data_time: 0.0015  memory: 3179  loss: 0.4441  loss_cls: 0.1908  loss_bbox: 0.2523  loss_consist: 0.0010
+10/16 06:06:17 - mmengine - INFO - Epoch(train) [12][350/781]  lr: 1.0000e-03  eta: 0:48:08  time: 0.3110  data_time: 0.0017  memory: 3179  loss: 0.5017  loss_cls: 0.2061  loss_bbox: 0.2948  loss_consist: 0.0008
+10/16 06:06:33 - mmengine - INFO - Epoch(train) [12][400/781]  lr: 1.0000e-03  eta: 0:47:55  time: 0.3201  data_time: 0.0015  memory: 3179  loss: 0.5023  loss_cls: 0.2270  loss_bbox: 0.2746  loss_consist: 0.0008
+10/16 06:06:36 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:06:49 - mmengine - INFO - Epoch(train) [12][450/781]  lr: 1.0000e-03  eta: 0:47:41  time: 0.3149  data_time: 0.0016  memory: 3179  loss: 0.4611  loss_cls: 0.1983  loss_bbox: 0.2620  loss_consist: 0.0008
+10/16 06:07:05 - mmengine - INFO - Epoch(train) [12][500/781]  lr: 1.0000e-03  eta: 0:47:28  time: 0.3216  data_time: 0.0016  memory: 3179  loss: 0.4771  loss_cls: 0.2219  loss_bbox: 0.2544  loss_consist: 0.0008
+10/16 06:07:21 - mmengine - INFO - Epoch(train) [12][550/781]  lr: 1.0000e-03  eta: 0:47:15  time: 0.3249  data_time: 0.0020  memory: 3179  loss: 0.4816  loss_cls: 0.2133  loss_bbox: 0.2671  loss_consist: 0.0011
+10/16 06:07:38 - mmengine - INFO - Epoch(train) [12][600/781]  lr: 1.0000e-03  eta: 0:47:01  time: 0.3213  data_time: 0.0016  memory: 3179  loss: 0.4555  loss_cls: 0.1937  loss_bbox: 0.2612  loss_consist: 0.0006
+10/16 06:07:54 - mmengine - INFO - Epoch(train) [12][650/781]  lr: 1.0000e-03  eta: 0:46:48  time: 0.3253  data_time: 0.0019  memory: 3179  loss: 0.3766  loss_cls: 0.1457  loss_bbox: 0.2302  loss_consist: 0.0006
+10/16 06:08:10 - mmengine - INFO - Epoch(train) [12][700/781]  lr: 1.0000e-03  eta: 0:46:34  time: 0.3168  data_time: 0.0019  memory: 3179  loss: 0.4590  loss_cls: 0.2034  loss_bbox: 0.2545  loss_consist: 0.0011
+10/16 06:08:25 - mmengine - INFO - Epoch(train) [12][750/781]  lr: 1.0000e-03  eta: 0:46:20  time: 0.3076  data_time: 0.0017  memory: 3179  loss: 0.4667  loss_cls: 0.2072  loss_bbox: 0.2588  loss_consist: 0.0007
+10/16 06:08:35 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:08:35 - mmengine - INFO - Saving checkpoint at 12 epochs
+10/16 06:08:52 - mmengine - INFO - Epoch(train) [13][ 50/781]  lr: 1.0000e-03  eta: 0:45:58  time: 0.3173  data_time: 0.0022  memory: 3179  loss: 0.4852  loss_cls: 0.2146  loss_bbox: 0.2699  loss_consist: 0.0006
+10/16 06:09:07 - mmengine - INFO - Epoch(train) [13][100/781]  lr: 1.0000e-03  eta: 0:45:44  time: 0.3136  data_time: 0.0018  memory: 3179  loss: 0.4211  loss_cls: 0.1785  loss_bbox: 0.2417  loss_consist: 0.0008
+10/16 06:09:23 - mmengine - INFO - Epoch(train) [13][150/781]  lr: 1.0000e-03  eta: 0:45:30  time: 0.3207  data_time: 0.0021  memory: 3179  loss: 0.3936  loss_cls: 0.1713  loss_bbox: 0.2199  loss_consist: 0.0024
+10/16 06:09:39 - mmengine - INFO - Epoch(train) [13][200/781]  lr: 1.0000e-03  eta: 0:45:16  time: 0.3078  data_time: 0.0014  memory: 3179  loss: 0.3930  loss_cls: 0.1604  loss_bbox: 0.2316  loss_consist: 0.0011
+10/16 06:09:55 - mmengine - INFO - Epoch(train) [13][250/781]  lr: 1.0000e-03  eta: 0:45:02  time: 0.3163  data_time: 0.0013  memory: 3179  loss: 0.4144  loss_cls: 0.1839  loss_bbox: 0.2281  loss_consist: 0.0024
+10/16 06:10:10 - mmengine - INFO - Epoch(train) [13][300/781]  lr: 1.0000e-03  eta: 0:44:48  time: 0.3111  data_time: 0.0013  memory: 3179  loss: 0.3825  loss_cls: 0.1459  loss_bbox: 0.2358  loss_consist: 0.0008
+10/16 06:10:26 - mmengine - INFO - Epoch(train) [13][350/781]  lr: 1.0000e-03  eta: 0:44:34  time: 0.3198  data_time: 0.0017  memory: 3179  loss: 0.3934  loss_cls: 0.1582  loss_bbox: 0.2339  loss_consist: 0.0013
+10/16 06:10:42 - mmengine - INFO - Epoch(train) [13][400/781]  lr: 1.0000e-03  eta: 0:44:21  time: 0.3185  data_time: 0.0016  memory: 3179  loss: 0.4525  loss_cls: 0.1777  loss_bbox: 0.2744  loss_consist: 0.0005
+10/16 06:10:59 - mmengine - INFO - Epoch(train) [13][450/781]  lr: 1.0000e-03  eta: 0:44:07  time: 0.3302  data_time: 0.0015  memory: 3179  loss: 0.4714  loss_cls: 0.2031  loss_bbox: 0.2669  loss_consist: 0.0014
+10/16 06:11:14 - mmengine - INFO - Epoch(train) [13][500/781]  lr: 1.0000e-03  eta: 0:43:53  time: 0.3127  data_time: 0.0014  memory: 3179  loss: 0.4537  loss_cls: 0.1883  loss_bbox: 0.2647  loss_consist: 0.0007
+10/16 06:11:30 - mmengine - INFO - Epoch(train) [13][550/781]  lr: 1.0000e-03  eta: 0:43:39  time: 0.3182  data_time: 0.0016  memory: 3179  loss: 0.4878  loss_cls: 0.2204  loss_bbox: 0.2660  loss_consist: 0.0014
+10/16 06:11:46 - mmengine - INFO - Epoch(train) [13][600/781]  lr: 1.0000e-03  eta: 0:43:25  time: 0.3125  data_time: 0.0018  memory: 3179  loss: 0.4198  loss_cls: 0.1751  loss_bbox: 0.2438  loss_consist: 0.0009
+10/16 06:11:55 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:12:02 - mmengine - INFO - Epoch(train) [13][650/781]  lr: 1.0000e-03  eta: 0:43:11  time: 0.3236  data_time: 0.0022  memory: 3179  loss: 0.3860  loss_cls: 0.1378  loss_bbox: 0.2471  loss_consist: 0.0011
+10/16 06:12:17 - mmengine - INFO - Epoch(train) [13][700/781]  lr: 1.0000e-03  eta: 0:42:57  time: 0.3067  data_time: 0.0015  memory: 3179  loss: 0.4526  loss_cls: 0.1891  loss_bbox: 0.2625  loss_consist: 0.0009
+10/16 06:12:33 - mmengine - INFO - Epoch(train) [13][750/781]  lr: 1.0000e-03  eta: 0:42:43  time: 0.3125  data_time: 0.0018  memory: 3179  loss: 0.4287  loss_cls: 0.1758  loss_bbox: 0.2519  loss_consist: 0.0010
+10/16 06:12:43 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:12:43 - mmengine - INFO - Saving checkpoint at 13 epochs
+10/16 06:13:00 - mmengine - INFO - Epoch(train) [14][ 50/781]  lr: 1.0000e-03  eta: 0:42:20  time: 0.3149  data_time: 0.0040  memory: 3179  loss: 0.5004  loss_cls: 0.2348  loss_bbox: 0.2644  loss_consist: 0.0011
+10/16 06:13:16 - mmengine - INFO - Epoch(train) [14][100/781]  lr: 1.0000e-03  eta: 0:42:06  time: 0.3195  data_time: 0.0019  memory: 3179  loss: 0.4386  loss_cls: 0.1845  loss_bbox: 0.2535  loss_consist: 0.0006
+10/16 06:13:32 - mmengine - INFO - Epoch(train) [14][150/781]  lr: 1.0000e-03  eta: 0:41:52  time: 0.3302  data_time: 0.0012  memory: 3179  loss: 0.4003  loss_cls: 0.1505  loss_bbox: 0.2490  loss_consist: 0.0007
+10/16 06:13:47 - mmengine - INFO - Epoch(train) [14][200/781]  lr: 1.0000e-03  eta: 0:41:38  time: 0.3094  data_time: 0.0017  memory: 3179  loss: 0.3824  loss_cls: 0.1473  loss_bbox: 0.2346  loss_consist: 0.0005
+10/16 06:14:03 - mmengine - INFO - Epoch(train) [14][250/781]  lr: 1.0000e-03  eta: 0:41:24  time: 0.3143  data_time: 0.0015  memory: 3179  loss: 0.3988  loss_cls: 0.1613  loss_bbox: 0.2368  loss_consist: 0.0007
+10/16 06:14:20 - mmengine - INFO - Epoch(train) [14][300/781]  lr: 1.0000e-03  eta: 0:41:10  time: 0.3289  data_time: 0.0016  memory: 3179  loss: 0.4540  loss_cls: 0.2066  loss_bbox: 0.2468  loss_consist: 0.0006
+10/16 06:14:35 - mmengine - INFO - Epoch(train) [14][350/781]  lr: 1.0000e-03  eta: 0:40:56  time: 0.3112  data_time: 0.0019  memory: 3179  loss: 0.4103  loss_cls: 0.1726  loss_bbox: 0.2371  loss_consist: 0.0005
+10/16 06:14:51 - mmengine - INFO - Epoch(train) [14][400/781]  lr: 1.0000e-03  eta: 0:40:42  time: 0.3231  data_time: 0.0014  memory: 3179  loss: 0.4241  loss_cls: 0.1860  loss_bbox: 0.2363  loss_consist: 0.0018
+10/16 06:15:08 - mmengine - INFO - Epoch(train) [14][450/781]  lr: 1.0000e-03  eta: 0:40:28  time: 0.3342  data_time: 0.0018  memory: 3179  loss: 0.4908  loss_cls: 0.2289  loss_bbox: 0.2608  loss_consist: 0.0011
+10/16 06:15:24 - mmengine - INFO - Epoch(train) [14][500/781]  lr: 1.0000e-03  eta: 0:40:14  time: 0.3195  data_time: 0.0016  memory: 3179  loss: 0.4339  loss_cls: 0.1765  loss_bbox: 0.2565  loss_consist: 0.0009
+10/16 06:15:40 - mmengine - INFO - Epoch(train) [14][550/781]  lr: 1.0000e-03  eta: 0:40:00  time: 0.3167  data_time: 0.0017  memory: 3179  loss: 0.4387  loss_cls: 0.1930  loss_bbox: 0.2448  loss_consist: 0.0009
+10/16 06:15:56 - mmengine - INFO - Epoch(train) [14][600/781]  lr: 1.0000e-03  eta: 0:39:45  time: 0.3136  data_time: 0.0022  memory: 3179  loss: 0.4201  loss_cls: 0.1656  loss_bbox: 0.2540  loss_consist: 0.0005
+10/16 06:16:12 - mmengine - INFO - Epoch(train) [14][650/781]  lr: 1.0000e-03  eta: 0:39:31  time: 0.3191  data_time: 0.0019  memory: 3179  loss: 0.3747  loss_cls: 0.1324  loss_bbox: 0.2419  loss_consist: 0.0004
+10/16 06:16:27 - mmengine - INFO - Epoch(train) [14][700/781]  lr: 1.0000e-03  eta: 0:39:17  time: 0.3163  data_time: 0.0017  memory: 3179  loss: 0.4356  loss_cls: 0.1695  loss_bbox: 0.2656  loss_consist: 0.0006
+10/16 06:16:43 - mmengine - INFO - Epoch(train) [14][750/781]  lr: 1.0000e-03  eta: 0:39:02  time: 0.3079  data_time: 0.0018  memory: 3179  loss: 0.3888  loss_cls: 0.1615  loss_bbox: 0.2266  loss_consist: 0.0006
+10/16 06:16:52 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:16:52 - mmengine - INFO - Saving checkpoint at 14 epochs
+10/16 06:17:09 - mmengine - INFO - Epoch(train) [15][ 50/781]  lr: 1.0000e-03  eta: 0:38:39  time: 0.3225  data_time: 0.0027  memory: 3179  loss: 0.4416  loss_cls: 0.1611  loss_bbox: 0.2797  loss_consist: 0.0008
+10/16 06:17:15 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:17:26 - mmengine - INFO - Epoch(train) [15][100/781]  lr: 1.0000e-03  eta: 0:38:25  time: 0.3250  data_time: 0.0015  memory: 3179  loss: 0.4088  loss_cls: 0.1629  loss_bbox: 0.2455  loss_consist: 0.0004
+10/16 06:17:41 - mmengine - INFO - Epoch(train) [15][150/781]  lr: 1.0000e-03  eta: 0:38:11  time: 0.3134  data_time: 0.0015  memory: 3179  loss: 0.4338  loss_cls: 0.1906  loss_bbox: 0.2428  loss_consist: 0.0004
+10/16 06:17:58 - mmengine - INFO - Epoch(train) [15][200/781]  lr: 1.0000e-03  eta: 0:37:57  time: 0.3263  data_time: 0.0021  memory: 3179  loss: 0.4045  loss_cls: 0.1730  loss_bbox: 0.2309  loss_consist: 0.0007
+10/16 06:18:14 - mmengine - INFO - Epoch(train) [15][250/781]  lr: 1.0000e-03  eta: 0:37:42  time: 0.3194  data_time: 0.0016  memory: 3179  loss: 0.4562  loss_cls: 0.1900  loss_bbox: 0.2655  loss_consist: 0.0007
+10/16 06:18:29 - mmengine - INFO - Epoch(train) [15][300/781]  lr: 1.0000e-03  eta: 0:37:28  time: 0.3142  data_time: 0.0016  memory: 3179  loss: 0.4268  loss_cls: 0.1854  loss_bbox: 0.2408  loss_consist: 0.0006
+10/16 06:18:45 - mmengine - INFO - Epoch(train) [15][350/781]  lr: 1.0000e-03  eta: 0:37:13  time: 0.3071  data_time: 0.0020  memory: 3179  loss: 0.4174  loss_cls: 0.1708  loss_bbox: 0.2458  loss_consist: 0.0007
+10/16 06:19:00 - mmengine - INFO - Epoch(train) [15][400/781]  lr: 1.0000e-03  eta: 0:36:59  time: 0.3129  data_time: 0.0016  memory: 3179  loss: 0.3998  loss_cls: 0.1566  loss_bbox: 0.2426  loss_consist: 0.0006
+10/16 06:19:17 - mmengine - INFO - Epoch(train) [15][450/781]  lr: 1.0000e-03  eta: 0:36:45  time: 0.3229  data_time: 0.0018  memory: 3179  loss: 0.4437  loss_cls: 0.1950  loss_bbox: 0.2482  loss_consist: 0.0005
+10/16 06:19:32 - mmengine - INFO - Epoch(train) [15][500/781]  lr: 1.0000e-03  eta: 0:36:30  time: 0.3182  data_time: 0.0017  memory: 3179  loss: 0.4244  loss_cls: 0.1843  loss_bbox: 0.2397  loss_consist: 0.0004
+10/16 06:19:48 - mmengine - INFO - Epoch(train) [15][550/781]  lr: 1.0000e-03  eta: 0:36:16  time: 0.3182  data_time: 0.0012  memory: 3179  loss: 0.4173  loss_cls: 0.1584  loss_bbox: 0.2581  loss_consist: 0.0008
+10/16 06:20:05 - mmengine - INFO - Epoch(train) [15][600/781]  lr: 1.0000e-03  eta: 0:36:02  time: 0.3265  data_time: 0.0018  memory: 3179  loss: 0.3848  loss_cls: 0.1613  loss_bbox: 0.2231  loss_consist: 0.0005
+10/16 06:20:20 - mmengine - INFO - Epoch(train) [15][650/781]  lr: 1.0000e-03  eta: 0:35:47  time: 0.3131  data_time: 0.0016  memory: 3179  loss: 0.4876  loss_cls: 0.2440  loss_bbox: 0.2429  loss_consist: 0.0006
+10/16 06:20:36 - mmengine - INFO - Epoch(train) [15][700/781]  lr: 1.0000e-03  eta: 0:35:33  time: 0.3213  data_time: 0.0020  memory: 3179  loss: 0.4080  loss_cls: 0.1561  loss_bbox: 0.2513  loss_consist: 0.0006
+10/16 06:20:52 - mmengine - INFO - Epoch(train) [15][750/781]  lr: 1.0000e-03  eta: 0:35:18  time: 0.3090  data_time: 0.0015  memory: 3179  loss: 0.3746  loss_cls: 0.1549  loss_bbox: 0.2193  loss_consist: 0.0004
+10/16 06:21:01 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:21:01 - mmengine - INFO - Saving checkpoint at 15 epochs
+10/16 06:21:18 - mmengine - INFO - Epoch(train) [16][ 50/781]  lr: 1.0000e-03  eta: 0:34:54  time: 0.3075  data_time: 0.0027  memory: 3179  loss: 0.3916  loss_cls: 0.1609  loss_bbox: 0.2291  loss_consist: 0.0016
+10/16 06:21:34 - mmengine - INFO - Epoch(train) [16][100/781]  lr: 1.0000e-03  eta: 0:34:40  time: 0.3188  data_time: 0.0018  memory: 3179  loss: 0.4723  loss_cls: 0.2001  loss_bbox: 0.2715  loss_consist: 0.0007
+10/16 06:21:50 - mmengine - INFO - Epoch(train) [16][150/781]  lr: 1.0000e-03  eta: 0:34:25  time: 0.3268  data_time: 0.0020  memory: 3179  loss: 0.3921  loss_cls: 0.1595  loss_bbox: 0.2323  loss_consist: 0.0004
+10/16 06:22:06 - mmengine - INFO - Epoch(train) [16][200/781]  lr: 1.0000e-03  eta: 0:34:11  time: 0.3111  data_time: 0.0016  memory: 3179  loss: 0.4023  loss_cls: 0.1633  loss_bbox: 0.2387  loss_consist: 0.0003
+10/16 06:22:22 - mmengine - INFO - Epoch(train) [16][250/781]  lr: 1.0000e-03  eta: 0:33:56  time: 0.3280  data_time: 0.0020  memory: 3179  loss: 0.3804  loss_cls: 0.1507  loss_bbox: 0.2290  loss_consist: 0.0006
+10/16 06:22:33 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:22:38 - mmengine - INFO - Epoch(train) [16][300/781]  lr: 1.0000e-03  eta: 0:33:42  time: 0.3130  data_time: 0.0017  memory: 3179  loss: 0.4585  loss_cls: 0.1865  loss_bbox: 0.2698  loss_consist: 0.0023
+10/16 06:22:53 - mmengine - INFO - Epoch(train) [16][350/781]  lr: 1.0000e-03  eta: 0:33:27  time: 0.3155  data_time: 0.0017  memory: 3179  loss: 0.3959  loss_cls: 0.1637  loss_bbox: 0.2312  loss_consist: 0.0010
+10/16 06:23:09 - mmengine - INFO - Epoch(train) [16][400/781]  lr: 1.0000e-03  eta: 0:33:13  time: 0.3196  data_time: 0.0016  memory: 3179  loss: 0.4087  loss_cls: 0.1577  loss_bbox: 0.2500  loss_consist: 0.0010
+10/16 06:23:25 - mmengine - INFO - Epoch(train) [16][450/781]  lr: 1.0000e-03  eta: 0:32:58  time: 0.3168  data_time: 0.0014  memory: 3179  loss: 0.4381  loss_cls: 0.1656  loss_bbox: 0.2721  loss_consist: 0.0004
+10/16 06:23:41 - mmengine - INFO - Epoch(train) [16][500/781]  lr: 1.0000e-03  eta: 0:32:43  time: 0.3213  data_time: 0.0016  memory: 3179  loss: 0.4027  loss_cls: 0.1512  loss_bbox: 0.2511  loss_consist: 0.0004
+10/16 06:23:58 - mmengine - INFO - Epoch(train) [16][550/781]  lr: 1.0000e-03  eta: 0:32:29  time: 0.3375  data_time: 0.0021  memory: 3179  loss: 0.4682  loss_cls: 0.1968  loss_bbox: 0.2706  loss_consist: 0.0008
+10/16 06:24:14 - mmengine - INFO - Epoch(train) [16][600/781]  lr: 1.0000e-03  eta: 0:32:15  time: 0.3122  data_time: 0.0013  memory: 3179  loss: 0.4287  loss_cls: 0.1821  loss_bbox: 0.2463  loss_consist: 0.0004
+10/16 06:24:30 - mmengine - INFO - Epoch(train) [16][650/781]  lr: 1.0000e-03  eta: 0:32:00  time: 0.3188  data_time: 0.0020  memory: 3179  loss: 0.4413  loss_cls: 0.1959  loss_bbox: 0.2448  loss_consist: 0.0007
+10/16 06:24:45 - mmengine - INFO - Epoch(train) [16][700/781]  lr: 1.0000e-03  eta: 0:31:45  time: 0.3130  data_time: 0.0019  memory: 3179  loss: 0.3970  loss_cls: 0.1781  loss_bbox: 0.2174  loss_consist: 0.0015
+10/16 06:25:02 - mmengine - INFO - Epoch(train) [16][750/781]  lr: 1.0000e-03  eta: 0:31:31  time: 0.3269  data_time: 0.0017  memory: 3179  loss: 0.4108  loss_cls: 0.1608  loss_bbox: 0.2494  loss_consist: 0.0006
+10/16 06:25:12 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:25:12 - mmengine - INFO - Saving checkpoint at 16 epochs
+10/16 06:25:29 - mmengine - INFO - Epoch(train) [17][ 50/781]  lr: 1.0000e-03  eta: 0:31:07  time: 0.3273  data_time: 0.0028  memory: 3179  loss: 0.4102  loss_cls: 0.1710  loss_bbox: 0.2383  loss_consist: 0.0009
+10/16 06:25:45 - mmengine - INFO - Epoch(train) [17][100/781]  lr: 1.0000e-03  eta: 0:30:53  time: 0.3161  data_time: 0.0017  memory: 3179  loss: 0.3896  loss_cls: 0.1577  loss_bbox: 0.2315  loss_consist: 0.0005
+10/16 06:26:02 - mmengine - INFO - Epoch(train) [17][150/781]  lr: 1.0000e-03  eta: 0:30:38  time: 0.3323  data_time: 0.0023  memory: 3179  loss: 0.3935  loss_cls: 0.1499  loss_bbox: 0.2433  loss_consist: 0.0004
+10/16 06:26:17 - mmengine - INFO - Epoch(train) [17][200/781]  lr: 1.0000e-03  eta: 0:30:23  time: 0.3072  data_time: 0.0019  memory: 3179  loss: 0.4441  loss_cls: 0.1911  loss_bbox: 0.2527  loss_consist: 0.0003
+10/16 06:26:33 - mmengine - INFO - Epoch(train) [17][250/781]  lr: 1.0000e-03  eta: 0:30:09  time: 0.3084  data_time: 0.0018  memory: 3179  loss: 0.4563  loss_cls: 0.1864  loss_bbox: 0.2694  loss_consist: 0.0004
+10/16 06:26:49 - mmengine - INFO - Epoch(train) [17][300/781]  lr: 1.0000e-03  eta: 0:29:54  time: 0.3201  data_time: 0.0016  memory: 3179  loss: 0.3993  loss_cls: 0.1568  loss_bbox: 0.2421  loss_consist: 0.0004
+10/16 06:27:04 - mmengine - INFO - Epoch(train) [17][350/781]  lr: 1.0000e-03  eta: 0:29:39  time: 0.3114  data_time: 0.0018  memory: 3179  loss: 0.4199  loss_cls: 0.1814  loss_bbox: 0.2371  loss_consist: 0.0014
+10/16 06:27:20 - mmengine - INFO - Epoch(train) [17][400/781]  lr: 1.0000e-03  eta: 0:29:24  time: 0.3146  data_time: 0.0016  memory: 3179  loss: 0.4311  loss_cls: 0.1833  loss_bbox: 0.2466  loss_consist: 0.0012
+10/16 06:27:36 - mmengine - INFO - Epoch(train) [17][450/781]  lr: 1.0000e-03  eta: 0:29:09  time: 0.3125  data_time: 0.0016  memory: 3179  loss: 0.3862  loss_cls: 0.1639  loss_bbox: 0.2212  loss_consist: 0.0010
+10/16 06:27:52 - mmengine - INFO - Epoch(train) [17][500/781]  lr: 1.0000e-03  eta: 0:28:55  time: 0.3212  data_time: 0.0014  memory: 3179  loss: 0.3765  loss_cls: 0.1504  loss_bbox: 0.2256  loss_consist: 0.0004
+10/16 06:27:53 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:28:08 - mmengine - INFO - Epoch(train) [17][550/781]  lr: 1.0000e-03  eta: 0:28:40  time: 0.3252  data_time: 0.0018  memory: 3179  loss: 0.4094  loss_cls: 0.1882  loss_bbox: 0.2208  loss_consist: 0.0005
+10/16 06:28:23 - mmengine - INFO - Epoch(train) [17][600/781]  lr: 1.0000e-03  eta: 0:28:25  time: 0.3084  data_time: 0.0018  memory: 3179  loss: 0.3884  loss_cls: 0.1544  loss_bbox: 0.2334  loss_consist: 0.0006
+10/16 06:28:39 - mmengine - INFO - Epoch(train) [17][650/781]  lr: 1.0000e-03  eta: 0:28:10  time: 0.3183  data_time: 0.0016  memory: 3179  loss: 0.4488  loss_cls: 0.1852  loss_bbox: 0.2630  loss_consist: 0.0006
+10/16 06:28:55 - mmengine - INFO - Epoch(train) [17][700/781]  lr: 1.0000e-03  eta: 0:27:56  time: 0.3235  data_time: 0.0022  memory: 3179  loss: 0.4233  loss_cls: 0.1901  loss_bbox: 0.2326  loss_consist: 0.0006
+10/16 06:29:12 - mmengine - INFO - Epoch(train) [17][750/781]  lr: 1.0000e-03  eta: 0:27:41  time: 0.3252  data_time: 0.0017  memory: 3179  loss: 0.4228  loss_cls: 0.1774  loss_bbox: 0.2447  loss_consist: 0.0007
+10/16 06:29:21 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:29:21 - mmengine - INFO - Saving checkpoint at 17 epochs
+10/16 06:29:38 - mmengine - INFO - Epoch(train) [18][ 50/781]  lr: 1.0000e-03  eta: 0:27:17  time: 0.3099  data_time: 0.0044  memory: 3179  loss: 0.4478  loss_cls: 0.1877  loss_bbox: 0.2578  loss_consist: 0.0024
+10/16 06:29:53 - mmengine - INFO - Epoch(train) [18][100/781]  lr: 1.0000e-03  eta: 0:27:02  time: 0.3115  data_time: 0.0018  memory: 3179  loss: 0.4075  loss_cls: 0.1612  loss_bbox: 0.2455  loss_consist: 0.0007
+10/16 06:30:09 - mmengine - INFO - Epoch(train) [18][150/781]  lr: 1.0000e-03  eta: 0:26:47  time: 0.3133  data_time: 0.0016  memory: 3179  loss: 0.3671  loss_cls: 0.1405  loss_bbox: 0.2263  loss_consist: 0.0004
+10/16 06:30:25 - mmengine - INFO - Epoch(train) [18][200/781]  lr: 1.0000e-03  eta: 0:26:32  time: 0.3218  data_time: 0.0018  memory: 3179  loss: 0.4346  loss_cls: 0.1956  loss_bbox: 0.2383  loss_consist: 0.0007
+10/16 06:30:41 - mmengine - INFO - Epoch(train) [18][250/781]  lr: 1.0000e-03  eta: 0:26:17  time: 0.3198  data_time: 0.0017  memory: 3179  loss: 0.4087  loss_cls: 0.1571  loss_bbox: 0.2513  loss_consist: 0.0003
+10/16 06:30:57 - mmengine - INFO - Epoch(train) [18][300/781]  lr: 1.0000e-03  eta: 0:26:02  time: 0.3133  data_time: 0.0016  memory: 3179  loss: 0.3691  loss_cls: 0.1326  loss_bbox: 0.2361  loss_consist: 0.0003
+10/16 06:31:13 - mmengine - INFO - Epoch(train) [18][350/781]  lr: 1.0000e-03  eta: 0:25:48  time: 0.3234  data_time: 0.0019  memory: 3179  loss: 0.3825  loss_cls: 0.1366  loss_bbox: 0.2454  loss_consist: 0.0005
+10/16 06:31:29 - mmengine - INFO - Epoch(train) [18][400/781]  lr: 1.0000e-03  eta: 0:25:33  time: 0.3186  data_time: 0.0020  memory: 3179  loss: 0.3896  loss_cls: 0.1519  loss_bbox: 0.2371  loss_consist: 0.0006
+10/16 06:31:45 - mmengine - INFO - Epoch(train) [18][450/781]  lr: 1.0000e-03  eta: 0:25:18  time: 0.3195  data_time: 0.0015  memory: 3179  loss: 0.3721  loss_cls: 0.1377  loss_bbox: 0.2340  loss_consist: 0.0005
+10/16 06:32:01 - mmengine - INFO - Epoch(train) [18][500/781]  lr: 1.0000e-03  eta: 0:25:03  time: 0.3140  data_time: 0.0016  memory: 3179  loss: 0.3993  loss_cls: 0.1508  loss_bbox: 0.2480  loss_consist: 0.0005
+10/16 06:32:17 - mmengine - INFO - Epoch(train) [18][550/781]  lr: 1.0000e-03  eta: 0:24:48  time: 0.3217  data_time: 0.0018  memory: 3179  loss: 0.3611  loss_cls: 0.1256  loss_bbox: 0.2350  loss_consist: 0.0005
+10/16 06:32:32 - mmengine - INFO - Epoch(train) [18][600/781]  lr: 1.0000e-03  eta: 0:24:33  time: 0.3082  data_time: 0.0020  memory: 3179  loss: 0.4178  loss_cls: 0.1548  loss_bbox: 0.2626  loss_consist: 0.0004
+10/16 06:32:48 - mmengine - INFO - Epoch(train) [18][650/781]  lr: 1.0000e-03  eta: 0:24:18  time: 0.3149  data_time: 0.0019  memory: 3179  loss: 0.3779  loss_cls: 0.1494  loss_bbox: 0.2281  loss_consist: 0.0004
+10/16 06:33:04 - mmengine - INFO - Epoch(train) [18][700/781]  lr: 1.0000e-03  eta: 0:24:04  time: 0.3197  data_time: 0.0019  memory: 3179  loss: 0.4178  loss_cls: 0.1670  loss_bbox: 0.2503  loss_consist: 0.0005
+10/16 06:33:11 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:33:20 - mmengine - INFO - Epoch(train) [18][750/781]  lr: 1.0000e-03  eta: 0:23:49  time: 0.3230  data_time: 0.0014  memory: 3179  loss: 0.3982  loss_cls: 0.1634  loss_bbox: 0.2341  loss_consist: 0.0007
+10/16 06:33:30 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:33:30 - mmengine - INFO - Saving checkpoint at 18 epochs
+10/16 06:33:47 - mmengine - INFO - Epoch(train) [19][ 50/781]  lr: 1.0000e-04  eta: 0:23:25  time: 0.3220  data_time: 0.0037  memory: 3179  loss: 0.3902  loss_cls: 0.1431  loss_bbox: 0.2469  loss_consist: 0.0002
+10/16 06:34:03 - mmengine - INFO - Epoch(train) [19][100/781]  lr: 1.0000e-04  eta: 0:23:10  time: 0.3189  data_time: 0.0017  memory: 3179  loss: 0.3637  loss_cls: 0.1326  loss_bbox: 0.2310  loss_consist: 0.0001
+10/16 06:34:19 - mmengine - INFO - Epoch(train) [19][150/781]  lr: 1.0000e-04  eta: 0:22:55  time: 0.3332  data_time: 0.0016  memory: 3179  loss: 0.4000  loss_cls: 0.1714  loss_bbox: 0.2284  loss_consist: 0.0001
+10/16 06:34:36 - mmengine - INFO - Epoch(train) [19][200/781]  lr: 1.0000e-04  eta: 0:22:40  time: 0.3211  data_time: 0.0015  memory: 3179  loss: 0.3713  loss_cls: 0.1401  loss_bbox: 0.2311  loss_consist: 0.0001
+10/16 06:34:51 - mmengine - INFO - Epoch(train) [19][250/781]  lr: 1.0000e-04  eta: 0:22:25  time: 0.3175  data_time: 0.0018  memory: 3179  loss: 0.3534  loss_cls: 0.1316  loss_bbox: 0.2217  loss_consist: 0.0001
+10/16 06:35:07 - mmengine - INFO - Epoch(train) [19][300/781]  lr: 1.0000e-04  eta: 0:22:10  time: 0.3162  data_time: 0.0020  memory: 3179  loss: 0.3758  loss_cls: 0.1475  loss_bbox: 0.2282  loss_consist: 0.0001
+10/16 06:35:23 - mmengine - INFO - Epoch(train) [19][350/781]  lr: 1.0000e-04  eta: 0:21:55  time: 0.3183  data_time: 0.0021  memory: 3179  loss: 0.3542  loss_cls: 0.1248  loss_bbox: 0.2292  loss_consist: 0.0002
+10/16 06:35:39 - mmengine - INFO - Epoch(train) [19][400/781]  lr: 1.0000e-04  eta: 0:21:40  time: 0.3234  data_time: 0.0016  memory: 3179  loss: 0.3537  loss_cls: 0.1468  loss_bbox: 0.2069  loss_consist: 0.0001
+10/16 06:35:56 - mmengine - INFO - Epoch(train) [19][450/781]  lr: 1.0000e-04  eta: 0:21:26  time: 0.3274  data_time: 0.0018  memory: 3179  loss: 0.3524  loss_cls: 0.1225  loss_bbox: 0.2298  loss_consist: 0.0001
+10/16 06:36:11 - mmengine - INFO - Epoch(train) [19][500/781]  lr: 1.0000e-04  eta: 0:21:11  time: 0.3146  data_time: 0.0017  memory: 3179  loss: 0.3701  loss_cls: 0.1347  loss_bbox: 0.2352  loss_consist: 0.0002
+10/16 06:36:28 - mmengine - INFO - Epoch(train) [19][550/781]  lr: 1.0000e-04  eta: 0:20:56  time: 0.3258  data_time: 0.0017  memory: 3179  loss: 0.3235  loss_cls: 0.1382  loss_bbox: 0.1852  loss_consist: 0.0001
+10/16 06:36:44 - mmengine - INFO - Epoch(train) [19][600/781]  lr: 1.0000e-04  eta: 0:20:41  time: 0.3230  data_time: 0.0019  memory: 3179  loss: 0.3237  loss_cls: 0.1122  loss_bbox: 0.2115  loss_consist: 0.0001
+10/16 06:37:00 - mmengine - INFO - Epoch(train) [19][650/781]  lr: 1.0000e-04  eta: 0:20:26  time: 0.3154  data_time: 0.0019  memory: 3179  loss: 0.3707  loss_cls: 0.1458  loss_bbox: 0.2249  loss_consist: 0.0001
+10/16 06:37:15 - mmengine - INFO - Epoch(train) [19][700/781]  lr: 1.0000e-04  eta: 0:20:11  time: 0.3173  data_time: 0.0016  memory: 3179  loss: 0.3795  loss_cls: 0.1348  loss_bbox: 0.2446  loss_consist: 0.0001
+10/16 06:37:31 - mmengine - INFO - Epoch(train) [19][750/781]  lr: 1.0000e-04  eta: 0:19:56  time: 0.3121  data_time: 0.0018  memory: 3179  loss: 0.3354  loss_cls: 0.1080  loss_bbox: 0.2273  loss_consist: 0.0001
+10/16 06:37:41 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:37:41 - mmengine - INFO - Saving checkpoint at 19 epochs
+10/16 06:37:58 - mmengine - INFO - Epoch(train) [20][ 50/781]  lr: 1.0000e-04  eta: 0:19:31  time: 0.3196  data_time: 0.0035  memory: 3179  loss: 0.3124  loss_cls: 0.1130  loss_bbox: 0.1993  loss_consist: 0.0001
+10/16 06:38:14 - mmengine - INFO - Epoch(train) [20][100/781]  lr: 1.0000e-04  eta: 0:19:16  time: 0.3197  data_time: 0.0020  memory: 3179  loss: 0.3678  loss_cls: 0.1461  loss_bbox: 0.2217  loss_consist: 0.0000
+10/16 06:38:30 - mmengine - INFO - Epoch(train) [20][150/781]  lr: 1.0000e-04  eta: 0:19:01  time: 0.3120  data_time: 0.0019  memory: 3179  loss: 0.3065  loss_cls: 0.1019  loss_bbox: 0.2046  loss_consist: 0.0000
+10/16 06:38:33 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:38:46 - mmengine - INFO - Epoch(train) [20][200/781]  lr: 1.0000e-04  eta: 0:18:46  time: 0.3341  data_time: 0.0014  memory: 3179  loss: 0.3507  loss_cls: 0.1299  loss_bbox: 0.2207  loss_consist: 0.0001
+10/16 06:39:02 - mmengine - INFO - Epoch(train) [20][250/781]  lr: 1.0000e-04  eta: 0:18:31  time: 0.3158  data_time: 0.0015  memory: 3179  loss: 0.3597  loss_cls: 0.1258  loss_bbox: 0.2338  loss_consist: 0.0001
+10/16 06:39:19 - mmengine - INFO - Epoch(train) [20][300/781]  lr: 1.0000e-04  eta: 0:18:16  time: 0.3255  data_time: 0.0016  memory: 3179  loss: 0.3186  loss_cls: 0.1133  loss_bbox: 0.2052  loss_consist: 0.0001
+10/16 06:39:34 - mmengine - INFO - Epoch(train) [20][350/781]  lr: 1.0000e-04  eta: 0:18:01  time: 0.3158  data_time: 0.0016  memory: 3179  loss: 0.3660  loss_cls: 0.1263  loss_bbox: 0.2396  loss_consist: 0.0001
+10/16 06:39:50 - mmengine - INFO - Epoch(train) [20][400/781]  lr: 1.0000e-04  eta: 0:17:46  time: 0.3232  data_time: 0.0019  memory: 3179  loss: 0.3197  loss_cls: 0.1143  loss_bbox: 0.2053  loss_consist: 0.0001
+10/16 06:40:06 - mmengine - INFO - Epoch(train) [20][450/781]  lr: 1.0000e-04  eta: 0:17:31  time: 0.3188  data_time: 0.0019  memory: 3179  loss: 0.3297  loss_cls: 0.1118  loss_bbox: 0.2179  loss_consist: 0.0000
+10/16 06:40:23 - mmengine - INFO - Epoch(train) [20][500/781]  lr: 1.0000e-04  eta: 0:17:16  time: 0.3303  data_time: 0.0018  memory: 3179  loss: 0.3379  loss_cls: 0.1238  loss_bbox: 0.2141  loss_consist: 0.0000
+10/16 06:40:39 - mmengine - INFO - Epoch(train) [20][550/781]  lr: 1.0000e-04  eta: 0:17:01  time: 0.3247  data_time: 0.0013  memory: 3179  loss: 0.3236  loss_cls: 0.1073  loss_bbox: 0.2163  loss_consist: 0.0001
+10/16 06:40:55 - mmengine - INFO - Epoch(train) [20][600/781]  lr: 1.0000e-04  eta: 0:16:46  time: 0.3139  data_time: 0.0017  memory: 3179  loss: 0.3910  loss_cls: 0.1588  loss_bbox: 0.2321  loss_consist: 0.0001
+10/16 06:41:11 - mmengine - INFO - Epoch(train) [20][650/781]  lr: 1.0000e-04  eta: 0:16:31  time: 0.3166  data_time: 0.0016  memory: 3179  loss: 0.3553  loss_cls: 0.1338  loss_bbox: 0.2214  loss_consist: 0.0001
+10/16 06:41:26 - mmengine - INFO - Epoch(train) [20][700/781]  lr: 1.0000e-04  eta: 0:16:16  time: 0.3118  data_time: 0.0016  memory: 3179  loss: 0.3443  loss_cls: 0.1120  loss_bbox: 0.2323  loss_consist: 0.0001
+10/16 06:41:42 - mmengine - INFO - Epoch(train) [20][750/781]  lr: 1.0000e-04  eta: 0:16:01  time: 0.3202  data_time: 0.0013  memory: 3179  loss: 0.3282  loss_cls: 0.1083  loss_bbox: 0.2199  loss_consist: 0.0000
+10/16 06:41:53 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:41:53 - mmengine - INFO - Saving checkpoint at 20 epochs
+10/16 06:42:10 - mmengine - INFO - Epoch(train) [21][ 50/781]  lr: 1.0000e-04  eta: 0:15:36  time: 0.3116  data_time: 0.0038  memory: 3179  loss: 0.3466  loss_cls: 0.1194  loss_bbox: 0.2272  loss_consist: 0.0000
+10/16 06:42:26 - mmengine - INFO - Epoch(train) [21][100/781]  lr: 1.0000e-04  eta: 0:15:21  time: 0.3173  data_time: 0.0021  memory: 3179  loss: 0.3143  loss_cls: 0.1178  loss_bbox: 0.1965  loss_consist: 0.0000
+10/16 06:42:42 - mmengine - INFO - Epoch(train) [21][150/781]  lr: 1.0000e-04  eta: 0:15:06  time: 0.3159  data_time: 0.0017  memory: 3179  loss: 0.3396  loss_cls: 0.1189  loss_bbox: 0.2207  loss_consist: 0.0000
+10/16 06:42:58 - mmengine - INFO - Epoch(train) [21][200/781]  lr: 1.0000e-04  eta: 0:14:51  time: 0.3189  data_time: 0.0016  memory: 3179  loss: 0.3107  loss_cls: 0.1064  loss_bbox: 0.2042  loss_consist: 0.0000
+10/16 06:43:14 - mmengine - INFO - Epoch(train) [21][250/781]  lr: 1.0000e-04  eta: 0:14:36  time: 0.3263  data_time: 0.0017  memory: 3179  loss: 0.3455  loss_cls: 0.1202  loss_bbox: 0.2252  loss_consist: 0.0001
+10/16 06:43:30 - mmengine - INFO - Epoch(train) [21][300/781]  lr: 1.0000e-04  eta: 0:14:21  time: 0.3155  data_time: 0.0015  memory: 3179  loss: 0.3063  loss_cls: 0.1038  loss_bbox: 0.2024  loss_consist: 0.0001
+10/16 06:43:45 - mmengine - INFO - Epoch(train) [21][350/781]  lr: 1.0000e-04  eta: 0:14:06  time: 0.3143  data_time: 0.0014  memory: 3179  loss: 0.3761  loss_cls: 0.1302  loss_bbox: 0.2458  loss_consist: 0.0000
+10/16 06:43:55 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:44:02 - mmengine - INFO - Epoch(train) [21][400/781]  lr: 1.0000e-04  eta: 0:13:51  time: 0.3282  data_time: 0.0016  memory: 3179  loss: 0.3515  loss_cls: 0.1238  loss_bbox: 0.2277  loss_consist: 0.0001
+10/16 06:44:18 - mmengine - INFO - Epoch(train) [21][450/781]  lr: 1.0000e-04  eta: 0:13:36  time: 0.3231  data_time: 0.0015  memory: 3179  loss: 0.2934  loss_cls: 0.1012  loss_bbox: 0.1922  loss_consist: 0.0001
+10/16 06:44:34 - mmengine - INFO - Epoch(train) [21][500/781]  lr: 1.0000e-04  eta: 0:13:20  time: 0.3157  data_time: 0.0018  memory: 3179  loss: 0.3137  loss_cls: 0.1057  loss_bbox: 0.2079  loss_consist: 0.0000
+10/16 06:44:50 - mmengine - INFO - Epoch(train) [21][550/781]  lr: 1.0000e-04  eta: 0:13:05  time: 0.3165  data_time: 0.0019  memory: 3179  loss: 0.3792  loss_cls: 0.1543  loss_bbox: 0.2248  loss_consist: 0.0000
+10/16 06:45:05 - mmengine - INFO - Epoch(train) [21][600/781]  lr: 1.0000e-04  eta: 0:12:50  time: 0.3116  data_time: 0.0018  memory: 3179  loss: 0.3170  loss_cls: 0.1084  loss_bbox: 0.2086  loss_consist: 0.0001
+10/16 06:45:21 - mmengine - INFO - Epoch(train) [21][650/781]  lr: 1.0000e-04  eta: 0:12:35  time: 0.3199  data_time: 0.0017  memory: 3179  loss: 0.3660  loss_cls: 0.1473  loss_bbox: 0.2187  loss_consist: 0.0000
+10/16 06:45:38 - mmengine - INFO - Epoch(train) [21][700/781]  lr: 1.0000e-04  eta: 0:12:20  time: 0.3295  data_time: 0.0018  memory: 3179  loss: 0.3607  loss_cls: 0.1320  loss_bbox: 0.2287  loss_consist: 0.0000
+10/16 06:45:53 - mmengine - INFO - Epoch(train) [21][750/781]  lr: 1.0000e-04  eta: 0:12:05  time: 0.3113  data_time: 0.0019  memory: 3179  loss: 0.3496  loss_cls: 0.1196  loss_bbox: 0.2299  loss_consist: 0.0001
+10/16 06:46:03 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:46:03 - mmengine - INFO - Saving checkpoint at 21 epochs
+10/16 06:46:20 - mmengine - INFO - Epoch(train) [22][ 50/781]  lr: 1.0000e-04  eta: 0:11:40  time: 0.3178  data_time: 0.0025  memory: 3179  loss: 0.3358  loss_cls: 0.1133  loss_bbox: 0.2225  loss_consist: 0.0000
+10/16 06:46:36 - mmengine - INFO - Epoch(train) [22][100/781]  lr: 1.0000e-04  eta: 0:11:25  time: 0.3231  data_time: 0.0016  memory: 3179  loss: 0.3144  loss_cls: 0.1011  loss_bbox: 0.2132  loss_consist: 0.0001
+10/16 06:46:53 - mmengine - INFO - Epoch(train) [22][150/781]  lr: 1.0000e-04  eta: 0:11:10  time: 0.3321  data_time: 0.0019  memory: 3179  loss: 0.3171  loss_cls: 0.1248  loss_bbox: 0.1923  loss_consist: 0.0001
+10/16 06:47:08 - mmengine - INFO - Epoch(train) [22][200/781]  lr: 1.0000e-04  eta: 0:10:54  time: 0.3190  data_time: 0.0020  memory: 3179  loss: 0.3306  loss_cls: 0.1081  loss_bbox: 0.2224  loss_consist: 0.0001
+10/16 06:47:24 - mmengine - INFO - Epoch(train) [22][250/781]  lr: 1.0000e-04  eta: 0:10:39  time: 0.3159  data_time: 0.0016  memory: 3179  loss: 0.3433  loss_cls: 0.1163  loss_bbox: 0.2269  loss_consist: 0.0000
+10/16 06:47:40 - mmengine - INFO - Epoch(train) [22][300/781]  lr: 1.0000e-04  eta: 0:10:24  time: 0.3130  data_time: 0.0020  memory: 3179  loss: 0.3081  loss_cls: 0.1165  loss_bbox: 0.1916  loss_consist: 0.0000
+10/16 06:47:56 - mmengine - INFO - Epoch(train) [22][350/781]  lr: 1.0000e-04  eta: 0:10:09  time: 0.3243  data_time: 0.0016  memory: 3179  loss: 0.3478  loss_cls: 0.1186  loss_bbox: 0.2292  loss_consist: 0.0000
+10/16 06:48:12 - mmengine - INFO - Epoch(train) [22][400/781]  lr: 1.0000e-04  eta: 0:09:54  time: 0.3206  data_time: 0.0017  memory: 3179  loss: 0.3225  loss_cls: 0.0952  loss_bbox: 0.2274  loss_consist: 0.0000
+10/16 06:48:28 - mmengine - INFO - Epoch(train) [22][450/781]  lr: 1.0000e-04  eta: 0:09:38  time: 0.3249  data_time: 0.0015  memory: 3179  loss: 0.3475  loss_cls: 0.1324  loss_bbox: 0.2150  loss_consist: 0.0001
+10/16 06:48:44 - mmengine - INFO - Epoch(train) [22][500/781]  lr: 1.0000e-04  eta: 0:09:23  time: 0.3191  data_time: 0.0016  memory: 3179  loss: 0.3261  loss_cls: 0.1145  loss_bbox: 0.2116  loss_consist: 0.0001
+10/16 06:49:00 - mmengine - INFO - Epoch(train) [22][550/781]  lr: 1.0000e-04  eta: 0:09:08  time: 0.3150  data_time: 0.0013  memory: 3179  loss: 0.3467  loss_cls: 0.1254  loss_bbox: 0.2213  loss_consist: 0.0001
+10/16 06:49:16 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:49:16 - mmengine - INFO - Epoch(train) [22][600/781]  lr: 1.0000e-04  eta: 0:08:53  time: 0.3235  data_time: 0.0019  memory: 3179  loss: 0.3342  loss_cls: 0.1142  loss_bbox: 0.2200  loss_consist: 0.0000
+10/16 06:49:33 - mmengine - INFO - Epoch(train) [22][650/781]  lr: 1.0000e-04  eta: 0:08:38  time: 0.3250  data_time: 0.0017  memory: 3179  loss: 0.3430  loss_cls: 0.1284  loss_bbox: 0.2144  loss_consist: 0.0001
+10/16 06:49:49 - mmengine - INFO - Epoch(train) [22][700/781]  lr: 1.0000e-04  eta: 0:08:22  time: 0.3246  data_time: 0.0019  memory: 3179  loss: 0.3312  loss_cls: 0.1069  loss_bbox: 0.2242  loss_consist: 0.0000
+10/16 06:50:05 - mmengine - INFO - Epoch(train) [22][750/781]  lr: 1.0000e-04  eta: 0:08:07  time: 0.3140  data_time: 0.0014  memory: 3179  loss: 0.3307  loss_cls: 0.1094  loss_bbox: 0.2212  loss_consist: 0.0000
+10/16 06:50:14 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:50:14 - mmengine - INFO - Saving checkpoint at 22 epochs
+10/16 06:50:32 - mmengine - INFO - Epoch(train) [23][ 50/781]  lr: 1.0000e-04  eta: 0:07:42  time: 0.3291  data_time: 0.0032  memory: 3179  loss: 0.3280  loss_cls: 0.1027  loss_bbox: 0.2252  loss_consist: 0.0001
+10/16 06:50:48 - mmengine - INFO - Epoch(train) [23][100/781]  lr: 1.0000e-04  eta: 0:07:27  time: 0.3139  data_time: 0.0019  memory: 3179  loss: 0.3566  loss_cls: 0.1245  loss_bbox: 0.2321  loss_consist: 0.0000
+10/16 06:51:03 - mmengine - INFO - Epoch(train) [23][150/781]  lr: 1.0000e-04  eta: 0:07:12  time: 0.3165  data_time: 0.0016  memory: 3179  loss: 0.2939  loss_cls: 0.1035  loss_bbox: 0.1903  loss_consist: 0.0000
+10/16 06:51:20 - mmengine - INFO - Epoch(train) [23][200/781]  lr: 1.0000e-04  eta: 0:06:57  time: 0.3372  data_time: 0.0017  memory: 3179  loss: 0.3405  loss_cls: 0.1218  loss_bbox: 0.2186  loss_consist: 0.0000
+10/16 06:51:37 - mmengine - INFO - Epoch(train) [23][250/781]  lr: 1.0000e-04  eta: 0:06:41  time: 0.3251  data_time: 0.0015  memory: 3179  loss: 0.3098  loss_cls: 0.0994  loss_bbox: 0.2104  loss_consist: 0.0000
+10/16 06:51:53 - mmengine - INFO - Epoch(train) [23][300/781]  lr: 1.0000e-04  eta: 0:06:26  time: 0.3220  data_time: 0.0020  memory: 3179  loss: 0.3444  loss_cls: 0.1275  loss_bbox: 0.2169  loss_consist: 0.0000
+10/16 06:52:08 - mmengine - INFO - Epoch(train) [23][350/781]  lr: 1.0000e-04  eta: 0:06:11  time: 0.3064  data_time: 0.0016  memory: 3179  loss: 0.2933  loss_cls: 0.1006  loss_bbox: 0.1927  loss_consist: 0.0000
+10/16 06:52:24 - mmengine - INFO - Epoch(train) [23][400/781]  lr: 1.0000e-04  eta: 0:05:56  time: 0.3216  data_time: 0.0015  memory: 3179  loss: 0.3805  loss_cls: 0.1413  loss_bbox: 0.2391  loss_consist: 0.0000
+10/16 06:52:40 - mmengine - INFO - Epoch(train) [23][450/781]  lr: 1.0000e-04  eta: 0:05:40  time: 0.3097  data_time: 0.0018  memory: 3179  loss: 0.3388  loss_cls: 0.1172  loss_bbox: 0.2216  loss_consist: 0.0000
+10/16 06:52:56 - mmengine - INFO - Epoch(train) [23][500/781]  lr: 1.0000e-04  eta: 0:05:25  time: 0.3191  data_time: 0.0020  memory: 3179  loss: 0.3318  loss_cls: 0.1167  loss_bbox: 0.2151  loss_consist: 0.0000
+10/16 06:53:11 - mmengine - INFO - Epoch(train) [23][550/781]  lr: 1.0000e-04  eta: 0:05:10  time: 0.3136  data_time: 0.0020  memory: 3179  loss: 0.3063  loss_cls: 0.0988  loss_bbox: 0.2075  loss_consist: 0.0000
+10/16 06:53:27 - mmengine - INFO - Epoch(train) [23][600/781]  lr: 1.0000e-04  eta: 0:04:54  time: 0.3146  data_time: 0.0022  memory: 3179  loss: 0.3221  loss_cls: 0.1131  loss_bbox: 0.2089  loss_consist: 0.0001
+10/16 06:53:42 - mmengine - INFO - Epoch(train) [23][650/781]  lr: 1.0000e-04  eta: 0:04:39  time: 0.3082  data_time: 0.0019  memory: 3179  loss: 0.3230  loss_cls: 0.1058  loss_bbox: 0.2172  loss_consist: 0.0001
+10/16 06:53:58 - mmengine - INFO - Epoch(train) [23][700/781]  lr: 1.0000e-04  eta: 0:04:24  time: 0.3131  data_time: 0.0014  memory: 3179  loss: 0.3539  loss_cls: 0.1272  loss_bbox: 0.2267  loss_consist: 0.0000
+10/16 06:54:14 - mmengine - INFO - Epoch(train) [23][750/781]  lr: 1.0000e-04  eta: 0:04:08  time: 0.3125  data_time: 0.0020  memory: 3179  loss: 0.2982  loss_cls: 0.0969  loss_bbox: 0.2013  loss_consist: 0.0000
+10/16 06:54:24 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:54:24 - mmengine - INFO - Saving checkpoint at 23 epochs
+10/16 06:54:36 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:54:41 - mmengine - INFO - Epoch(train) [24][ 50/781]  lr: 1.0000e-05  eta: 0:03:44  time: 0.3214  data_time: 0.0034  memory: 3179  loss: 0.3347  loss_cls: 0.1096  loss_bbox: 0.2251  loss_consist: 0.0000
+10/16 06:54:57 - mmengine - INFO - Epoch(train) [24][100/781]  lr: 1.0000e-05  eta: 0:03:28  time: 0.3218  data_time: 0.0015  memory: 3179  loss: 0.3490  loss_cls: 0.1176  loss_bbox: 0.2314  loss_consist: 0.0000
+10/16 06:55:11 - mmengine - INFO - Epoch(train) [24][150/781]  lr: 1.0000e-05  eta: 0:03:13  time: 0.2698  data_time: 0.0020  memory: 3179  loss: 0.3340  loss_cls: 0.1161  loss_bbox: 0.2179  loss_consist: 0.0000
+10/16 06:55:24 - mmengine - INFO - Epoch(train) [24][200/781]  lr: 1.0000e-05  eta: 0:02:58  time: 0.2689  data_time: 0.0020  memory: 3179  loss: 0.3686  loss_cls: 0.1372  loss_bbox: 0.2313  loss_consist: 0.0000
+10/16 06:55:37 - mmengine - INFO - Epoch(train) [24][250/781]  lr: 1.0000e-05  eta: 0:02:42  time: 0.2614  data_time: 0.0019  memory: 3179  loss: 0.3363  loss_cls: 0.1281  loss_bbox: 0.2082  loss_consist: 0.0000
+10/16 06:55:50 - mmengine - INFO - Epoch(train) [24][300/781]  lr: 1.0000e-05  eta: 0:02:27  time: 0.2530  data_time: 0.0017  memory: 3179  loss: 0.3195  loss_cls: 0.1082  loss_bbox: 0.2112  loss_consist: 0.0000
+10/16 06:56:03 - mmengine - INFO - Epoch(train) [24][350/781]  lr: 1.0000e-05  eta: 0:02:11  time: 0.2595  data_time: 0.0018  memory: 3179  loss: 0.3037  loss_cls: 0.0909  loss_bbox: 0.2128  loss_consist: 0.0000
+10/16 06:56:15 - mmengine - INFO - Epoch(train) [24][400/781]  lr: 1.0000e-05  eta: 0:01:56  time: 0.2515  data_time: 0.0020  memory: 3179  loss: 0.3194  loss_cls: 0.1089  loss_bbox: 0.2105  loss_consist: 0.0000
+10/16 06:56:28 - mmengine - INFO - Epoch(train) [24][450/781]  lr: 1.0000e-05  eta: 0:01:41  time: 0.2520  data_time: 0.0016  memory: 3179  loss: 0.3047  loss_cls: 0.0999  loss_bbox: 0.2047  loss_consist: 0.0000
+10/16 06:56:40 - mmengine - INFO - Epoch(train) [24][500/781]  lr: 1.0000e-05  eta: 0:01:25  time: 0.2509  data_time: 0.0017  memory: 3179  loss: 0.3095  loss_cls: 0.1152  loss_bbox: 0.1943  loss_consist: 0.0000
+10/16 06:56:53 - mmengine - INFO - Epoch(train) [24][550/781]  lr: 1.0000e-05  eta: 0:01:10  time: 0.2546  data_time: 0.0019  memory: 3179  loss: 0.3422  loss_cls: 0.1352  loss_bbox: 0.2070  loss_consist: 0.0000
+10/16 06:57:05 - mmengine - INFO - Epoch(train) [24][600/781]  lr: 1.0000e-05  eta: 0:00:55  time: 0.2479  data_time: 0.0017  memory: 3179  loss: 0.3188  loss_cls: 0.1095  loss_bbox: 0.2093  loss_consist: 0.0000
+10/16 06:57:18 - mmengine - INFO - Epoch(train) [24][650/781]  lr: 1.0000e-05  eta: 0:00:39  time: 0.2598  data_time: 0.0018  memory: 3179  loss: 0.3335  loss_cls: 0.1026  loss_bbox: 0.2309  loss_consist: 0.0000
+10/16 06:57:31 - mmengine - INFO - Epoch(train) [24][700/781]  lr: 1.0000e-05  eta: 0:00:24  time: 0.2549  data_time: 0.0017  memory: 3179  loss: 0.2709  loss_cls: 0.0980  loss_bbox: 0.1729  loss_consist: 0.0000
+10/16 06:57:44 - mmengine - INFO - Epoch(train) [24][750/781]  lr: 1.0000e-05  eta: 0:00:09  time: 0.2597  data_time: 0.0018  memory: 3179  loss: 0.3350  loss_cls: 0.1267  loss_bbox: 0.2083  loss_consist: 0.0000
+10/16 06:57:52 - mmengine - INFO - Exp name: tood_yola_lis_20261016_052208
+10/16 06:57:52 - mmengine - INFO - Saving checkpoint at 24 epochs

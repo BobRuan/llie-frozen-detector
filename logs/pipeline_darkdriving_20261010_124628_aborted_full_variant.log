@@ -1,0 +1,5 @@
+样本 10 对  device=cuda
+增强权重 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\generalization.pth
+检测器 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\yolo11s.pt  imgsz=1280  只看 COCO car 类
+[增强] enh_tile768: 3.45 s/张
+[增强] enh_resize1280: 0.90 s/张

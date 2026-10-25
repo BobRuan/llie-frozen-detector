@@ -1,0 +1,78 @@
+[
+  {
+    "flag": "best_GT_mean",
+    "weight": "LOLv2_real/w_perc.pth",
+    "readme": {
+      "normal": null,
+      "gt_mean": [
+        28.1387,
+        0.892,
+        0.1008
+      ]
+    },
+    "ours": {
+      "normal": [
+        23.2262,
+        0.8637,
+        0.1075
+      ],
+      "gt_mean": [
+        28.1397,
+        0.892,
+        0.1007
+      ]
+    }
+  },
+  {
+    "flag": "best_PSNR",
+    "weight": "LOLv2_real/best_PSNR.pth",
+    "readme": {
+      "normal": [
+        23.904,
+        0.8656,
+        0.1219
+      ],
+      "gt_mean": null
+    },
+    "ours": {
+      "normal": [
+        23.9044,
+        0.8656,
+        0.1219
+      ],
+      "gt_mean": [
+        27.9748,
+        0.8829,
+        0.1154
+      ]
+    }
+  },
+  {
+    "flag": "best_SSIM",
+    "weight": "LOLv2_real/best_SSIM.pth",
+    "readme": {
+      "normal": [
+        23.8975,
+        0.8705,
+        0.1185
+      ],
+      "gt_mean": [
+        28.3926,
+        0.8873,
+        0.1136
+      ]
+    },
+    "ours": {
+      "normal": [
+        23.8975,
+        0.8705,
+        0.1185
+      ],
+      "gt_mean": [
+        28.3926,
+        0.8873,
+        0.1136
+      ]
+    }
+  }
+]

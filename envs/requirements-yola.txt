@@ -1,0 +1,7 @@
+# 对比方法环境 yola：YOLA（NeurIPS 2024）的推理和微调，基于 MMDetection 3.3。
+# 在 cidnet 环境的基础上（先按 requirements-cidnet.txt 装好 PyTorch 和依赖），再装：
+#   pip install mmengine==0.10.4
+#   pip install mmcv==2.1.0 -f https://download.openmmlab.com/mmcv/dist/cu118/torch2.0.0/index.html
+#   pip install -r envs/requirements-yola.txt
+# mmcv 必须用上面这个预编译地址（对应 CUDA 11.8 + PyTorch 2.0），否则会从源码编译。
+mmdet==3.3.0

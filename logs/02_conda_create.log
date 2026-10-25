@@ -1,0 +1,79 @@
+﻿Retrieving notices: ...working... done
+Channels:
+ - defaults
+Platform: win-64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: E:\Anaconda\envs\cidnet
+
+  added / updated specs:
+    - python=3.8
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    ca-certificates-2026.9.25  |       haa95532_0         107 KB
+    libffi-3.4.8               |       h42d73b9_3         118 KB
+    openssl-3.5.9              |       hbb43b14_0         8.9 MB
+    pip-24.2                   |   py38haa95532_0         2.4 MB
+    python-3.8.20              |       h8205438_0        19.4 MB
+    setuptools-75.1.0          |   py38haa95532_0         1.6 MB
+    sqlite-3.53.4              |       hee5a0db_0         946 KB
+    vc-14.3                    |      h2df5915_12          16 KB
+    vc14_runtime-14.44.35208   |      h4927774_12         664 KB
+    vs2015_runtime-14.44.35208 |      ha6b5a95_12          16 KB
+    wheel-0.44.0               |   py38haa95532_0         137 KB
+    ------------------------------------------------------------
+                                           Total:        34.2 MB
+
+The following NEW packages will be INSTALLED:
+
+  ca-certificates    pkgs/main/win-64::ca-certificates-2026.9.25-haa95532_0 
+  libffi             pkgs/main/win-64::libffi-3.4.8-h42d73b9_3 
+  openssl            pkgs/main/win-64::openssl-3.5.9-hbb43b14_0 
+  pip                pkgs/main/win-64::pip-24.2-py38haa95532_0 
+  python             pkgs/main/win-64::python-3.8.20-h8205438_0 
+  setuptools         pkgs/main/win-64::setuptools-75.1.0-py38haa95532_0 
+  sqlite             pkgs/main/win-64::sqlite-3.53.4-hee5a0db_0 
+  ucrt               pkgs/main/win-64::ucrt-10.0.22621.0-haa95532_0 
+  vc                 pkgs/main/win-64::vc-14.3-h2df5915_12 
+  vc14_runtime       pkgs/main/win-64::vc14_runtime-14.44.35208-h4927774_12 
+  vs2015_runtime     pkgs/main/win-64::vs2015_runtime-14.44.35208-ha6b5a95_12 
+  wheel              pkgs/main/win-64::wheel-0.44.0-py38haa95532_0 
+
+
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+#
+# To activate this environment, use
+#
+#     $ conda activate cidnet
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+
+Channel "defaults" has the following notices:
+  [warning] -- Wed Sep 30 00:00:00 2026
+  Anaconda will stop building new Python 3.10 packages on the main channel after October 31, 2026. Existing Python 3.10 packages will stay available but will no longer get new builds or security fixes. We recommend upgrading to Python 3.11 or later. Details: https://www.anaconda.com/docs/reference/policies-practices/python-version-support?utm_source=channel_notices
+
+  [info] -- Thu Aug  6 00:00:00 2026
+  main-x (Anaconda's new authenticated channel) is now generally available, with thousands of additional packages from our secure supply chain. Get started at: https://anaconda.com/docs/getting-started/main-x?utm_source=channel_notices
+
+
+Channel "pkgs/main" has the following notices:
+  [warning] -- Wed Sep 30 00:00:00 2026
+  Anaconda will stop building new Python 3.10 packages on the main channel after October 31, 2026. Existing Python 3.10 packages will stay available but will no longer get new builds or security fixes. We recommend upgrading to Python 3.11 or later. Details: https://www.anaconda.com/docs/reference/policies-practices/python-version-support?utm_source=channel_notices
+
+  [info] -- Thu Aug  6 00:00:00 2026
+  main-x (Anaconda's new authenticated channel) is now generally available, with thousands of additional packages from our secure supply chain. Get started at: https://anaconda.com/docs/getting-started/main-x?utm_source=channel_notices
+

@@ -1,0 +1,27 @@
+669 对  device=cuda  检测器 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\yolo11s.pt  imgsz=1280
+[增强] cidnet_generalization: 沿用 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\lis_test\cidnet_generalization 里已有的结果
+[增强] cidnet_lolv2real: 沿用 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\lis_test\cidnet_lolv2real 里已有的结果
+[增强] ft_image_only: 沿用 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\lis_test\ft_image_only 里已有的结果
+[增强] ft_yolo_feat: 沿用 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\lis_test\ft_yolo_feat 里已有的结果
+
+结果（PSNR/SSIM 是和同一场景的正常光图比；mAP50 是 8 类平均，IoU 0.5；P/R 按置信度 >= 0.25）
+输入                      亮度      PSNR    SSIM    mAP50   精确率     召回率     
+normal                    52.7      -       -       0.719   0.700      0.729      
+dark                      7.5       13.73   0.142   0.411   0.745      0.399      
+auto_gamma                83.0      15.24   0.278   0.219   0.776      0.202      
+cidnet_generalization     67.5      17.52   0.306   0.355   0.733      0.324      
+cidnet_lolv2real          87.0      15.72   0.353   0.466   0.712      0.458      
+ft_image_only             53.6      21.45   0.525   0.594   0.712      0.581      
+ft_yolo_feat              53.0      21.50   0.524   0.616   0.720      0.602      
+
+各类 AP50
+输入                      bicycle   car       motorbike bus       bottle    chair     diningtab tvmonitor 
+normal                    0.787     0.923     0.647     0.920     0.677     0.740     0.398     0.658     
+dark                      0.288     0.782     0.226     0.564     0.507     0.376     0.174     0.369     
+auto_gamma                0.109     0.478     0.072     0.299     0.402     0.180     0.060     0.150     
+cidnet_generalization     0.283     0.644     0.248     0.541     0.497     0.259     0.108     0.263     
+cidnet_lolv2real          0.435     0.767     0.277     0.679     0.581     0.406     0.192     0.390     
+ft_image_only             0.540     0.883     0.465     0.784     0.646     0.587     0.275     0.572     
+ft_yolo_feat              0.591     0.881     0.509     0.816     0.643     0.598     0.301     0.591     
+
+图：C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\lis_test\overview.jpg（绿框 = 标注，红框 = 检测结果）

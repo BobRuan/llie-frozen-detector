@@ -1,0 +1,118 @@
+======================================================================
+开始复现  2026-10-10 12:30:04
+[junction] C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\code\HVI-CIDNet\datasets -> C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\data
+[junction] C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\code\HVI-CIDNet\weights -> C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights
+[junction] C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\code\HVI-CIDNet\output -> C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\official_eval
+测试集：Low 100 张，Normal 100 张（官方应为各 100 张）
+
+$ E:\Anaconda\envs\cidnet\python.exe eval.py --lol_v2_real --best_GT_mean
+Pre-trained model is loaded.
+Evaluation:
+100%|██████████| 100/100 [00:21<00:00,  5.81it/s]
+100%|██████████| 100/100 [00:21<00:00,  4.66it/s]
+===> End evaluation
+
+$ E:\Anaconda\envs\cidnet\python.exe measure.py --lol_v2_real
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Downloading: "https://download.pytorch.org/models/alexnet-owt-7be5be79.pth" to C:\Users\Administrator/.cache\torch\hub\checkpoints\alexnet-owt-7be5be79.pth
+Setting up [LPIPS] perceptual loss: trunk [alex], v[0.1], spatial [off]
+Loading model from: E:\Anaconda\envs\cidnet\lib\site-packages\lpips\weights\v0.1\alex.pth
+100%|██████████| 100/100 [00:20<00:00,  4.58it/s]
+100%|██████████| 100/100 [00:20<00:00,  4.90it/s]
+===> Avg.PSNR: 23.2262 dB 
+===> Avg.SSIM: 0.8637 
+===> Avg.LPIPS: 0.1075 
+
+$ E:\Anaconda\envs\cidnet\python.exe measure.py --lol_v2_real --use_GT_mean
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Setting up [LPIPS] perceptual loss: trunk [alex], v[0.1], spatial [off]
+Loading model from: E:\Anaconda\envs\cidnet\lib\site-packages\lpips\weights\v0.1\alex.pth
+100%|██████████| 100/100 [00:18<00:00,  4.08it/s]
+100%|██████████| 100/100 [00:18<00:00,  5.45it/s]
+===> Avg.PSNR: 28.1397 dB 
+===> Avg.SSIM: 0.8920 
+===> Avg.LPIPS: 0.1007 
+
+$ E:\Anaconda\envs\cidnet\python.exe eval.py --lol_v2_real --best_PSNR
+Pre-trained model is loaded.
+Evaluation:
+100%|██████████| 100/100 [00:23<00:00,  5.02it/s]
+100%|██████████| 100/100 [00:23<00:00,  4.23it/s]
+===> End evaluation
+
+$ E:\Anaconda\envs\cidnet\python.exe measure.py --lol_v2_real
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Setting up [LPIPS] perceptual loss: trunk [alex], v[0.1], spatial [off]
+Loading model from: E:\Anaconda\envs\cidnet\lib\site-packages\lpips\weights\v0.1\alex.pth
+100%|██████████| 100/100 [00:15<00:00,  4.49it/s]
+100%|██████████| 100/100 [00:15<00:00,  6.34it/s]
+===> Avg.PSNR: 23.9044 dB 
+===> Avg.SSIM: 0.8656 
+===> Avg.LPIPS: 0.1219 
+
+$ E:\Anaconda\envs\cidnet\python.exe measure.py --lol_v2_real --use_GT_mean
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Setting up [LPIPS] perceptual loss: trunk [alex], v[0.1], spatial [off]
+Loading model from: E:\Anaconda\envs\cidnet\lib\site-packages\lpips\weights\v0.1\alex.pth
+100%|██████████| 100/100 [00:16<00:00,  4.40it/s]
+100%|██████████| 100/100 [00:16<00:00,  6.07it/s]
+===> Avg.PSNR: 27.9748 dB 
+===> Avg.SSIM: 0.8829 
+===> Avg.LPIPS: 0.1154 
+
+$ E:\Anaconda\envs\cidnet\python.exe eval.py --lol_v2_real --best_SSIM
+Pre-trained model is loaded.
+Evaluation:
+100%|██████████| 100/100 [00:25<00:00,  4.96it/s]
+100%|██████████| 100/100 [00:25<00:00,  3.91it/s]
+===> End evaluation
+
+$ E:\Anaconda\envs\cidnet\python.exe measure.py --lol_v2_real
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Setting up [LPIPS] perceptual loss: trunk [alex], v[0.1], spatial [off]
+Loading model from: E:\Anaconda\envs\cidnet\lib\site-packages\lpips\weights\v0.1\alex.pth
+100%|██████████| 100/100 [00:16<00:00,  8.40it/s]
+100%|██████████| 100/100 [00:16<00:00,  6.05it/s]
+===> Avg.PSNR: 23.8975 dB 
+===> Avg.SSIM: 0.8705 
+===> Avg.LPIPS: 0.1185 
+
+$ E:\Anaconda\envs\cidnet\python.exe measure.py --lol_v2_real --use_GT_mean
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+E:\Anaconda\envs\cidnet\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=AlexNet_Weights.IMAGENET1K_V1`. You can also use `weights=AlexNet_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Setting up [LPIPS] perceptual loss: trunk [alex], v[0.1], spatial [off]
+Loading model from: E:\Anaconda\envs\cidnet\lib\site-packages\lpips\weights\v0.1\alex.pth
+100%|██████████| 100/100 [00:13<00:00,  6.39it/s]
+100%|██████████| 100/100 [00:13<00:00,  7.53it/s]
+===> Avg.PSNR: 28.3926 dB 
+===> Avg.SSIM: 0.8873 
+===> Avg.LPIPS: 0.1136 
+
+======================================================================
+结果汇总（README 值 vs 我们的值）
+权重            GT均值    README PSNR/SSIM/LPIPS      我们 PSNR/SSIM/LPIPS          ΔPSNR   
+best_GT_mean    否        (未报告)                         23.2262/0.8637/0.1075         -       
+best_GT_mean    是        28.1387/0.8920/0.1008         28.1397/0.8920/0.1007         +0.0010 
+best_PSNR       否        23.9040/0.8656/0.1219         23.9044/0.8656/0.1219         +0.0004 
+best_PSNR       是        (未报告)                         27.9748/0.8829/0.1154         -       
+best_SSIM       否        23.8975/0.8705/0.1185         23.8975/0.8705/0.1185         +0.0000 
+best_SSIM       是        28.3926/0.8873/0.1136         28.3926/0.8873/0.1136         +0.0000 
+
+结果已写入 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\logs\repro_lolv2_real_results.json

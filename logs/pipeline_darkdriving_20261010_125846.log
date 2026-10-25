@@ -1,0 +1,15 @@
+样本 10 对  device=cuda
+增强权重 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\generalization.pth
+检测器 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\weights\yolo11s.pt  imgsz=2464  只看 COCO car 类
+[增强] enh_tile768: 3.42 s/张
+[增强] enh_resize1280: 0.80 s/张
+
+检测结果（Car，IoU 0.5；TP/FP/FN 按置信度 >= 0.25 统计）
+输入                AP50    TP   FP   FN   GT 框数 
+day                 0.421   4    2    10   14    
+night               0.015   0    1    14   14    
+enh_tile768         0.008   0    0    14   14    
+enh_resize1280      0.009   0    1    14   14    
+
+图：C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\darkdriving_sample_imgsz2464\overview_full.jpg（整图）和 C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\outputs\darkdriving_sample_imgsz2464\overview_crops.jpg（车辆附近裁剪）
+绿框 = 标注，红框 = 检测结果

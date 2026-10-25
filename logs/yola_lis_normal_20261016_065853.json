@@ -1,0 +1,32 @@
+{
+  "time": "20261016_065853",
+  "checkpoint": "weights/yola_lis_ft/tood_lis/epoch_24.pth",
+  "config": "scripts/yola_configs/tood_yola_lis.py",
+  "input": "normal",
+  "classes": [
+    "bicycle",
+    "car",
+    "motorbike",
+    "bus",
+    "bottle",
+    "chair",
+    "diningtable",
+    "tvmonitor"
+  ],
+  "yola": {
+    "mAP50": 0.7556333939685531,
+    "precision": 0.6648761563712324,
+    "recall": 0.7593728698023177,
+    "per_class_AP50": {
+      "bicycle": 0.7733516284271722,
+      "car": 0.9250389853083645,
+      "motorbike": 0.8089200911623309,
+      "bus": 0.8533507089537392,
+      "bottle": 0.7166842166833276,
+      "chair": 0.7079207976215438,
+      "diningtable": 0.5456939946649588,
+      "tvmonitor": 0.7141067289269881
+    }
+  },
+  "ours_file": "C:\\Users\\Administrator\\Desktop\\DeepLearningCourseProject\\llie_driving\\logs\\pipeline_lis_20261016_034536.json"
+}

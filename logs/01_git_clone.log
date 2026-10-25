@@ -1,0 +1,7 @@
+﻿git : Cloning into 'C:\Users\Administrator\Desktop\DeepLearningCourseProject\llie_driving\code\HVI-CIDNet'...
+At line:1 char:378
++ ... e_driving'; git clone https://github.com/Fediory/HVI-CIDNet.git "$r\c ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'C...\HVI-CIDNet'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

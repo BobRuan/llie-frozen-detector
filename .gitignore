@@ -1,0 +1,14 @@
+# 大文件不进仓库：数据和官方权重用 scripts/download_all.py 下载，outputs 由脚本重新生成
+data/
+outputs/
+
+# 权重全部不进仓库：官方权重从原始来源下载，我们训练的权重放在 Hugging Face（scripts/upload_to_hf.py）
+weights/
+
+# 课程材料（大纲等）的版权属于授课老师，不能放到公开仓库
+*.pdf
+
+__pycache__/
+*.pyc
+.idea/
+.vscode/
