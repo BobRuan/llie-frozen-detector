@@ -145,7 +145,7 @@ On Windows, follow the commands at the top of [`envs/requirements-cidnet.txt`](e
 ```bash
 conda activate cidnet
 python scripts/download_all.py           # official weights, our weights, detectors, LIS (~4.4 GB), LOL-v2 (~1 GB)
-python scripts/download_all.py --yola    # additionally, YOLA weights (needs `huggingface-cli login`)
+python scripts/download_all.py --yola    # additionally, YOLA weights (official and fine-tuned on LIS)
 ```
 
 | What | Source |
@@ -154,7 +154,7 @@ python scripts/download_all.py --yola    # additionally, YOLA weights (needs `hu
 | Official HVI-CIDNet weights | [Fediory/HVI-CIDNet](https://huggingface.co/Fediory/HVI-CIDNet), checked against recorded SHA256 |
 | YOLO11s, YOLOv8s, RT-DETR-L | Ultralytics releases (COCO-pretrained) |
 | YOLA official weights | [MingboHong/YOLA](https://github.com/MingboHong/YOLA) Google Drive links |
-| YOLA fine-tuned on LIS | private Hugging Face repo (YOLA has no license); reproduce with `scripts/train_yola_lis.py` |
+| YOLA fine-tuned on LIS | [BobRuan174/llie-yola-lis](https://huggingface.co/BobRuan174/llie-yola-lis), or reproduce with `scripts/train_yola_lis.py` |
 | LIS | [Linwei-Chen/LIS](https://github.com/Linwei-Chen/LIS) |
 | LOL-v2 | Google Drive mirror provided by Retinexformer |
 

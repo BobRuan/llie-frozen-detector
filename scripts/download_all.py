@@ -7,7 +7,7 @@
     python scripts/download_all.py --only ours      # 只下某几步；可选 weights / ours / detectors / lis / lolv2 / yola / yola_lis
 
 已经存在的文件会跳过，可以反复运行。我们自己训练的权重放在 Hugging Face（见 OURS_REPO），
-由 scripts/upload_to_hf.py 上传；私有仓库需要先 huggingface-cli login。
+由 scripts/upload_to_hf.py 上传，两个仓库都是公开的。
 """
 import os
 
@@ -36,7 +36,7 @@ DETECTORS = ["yolo11s.pt", "yolov8s.pt", "rtdetr-l.pt"]   # ultralytics 官方�
 # 我们训练的权重（Hugging Face 仓库名在上传后填进来）
 OURS_REPO = "BobRuan174/llie-frozen-detector"
 OURS_FILES = [f"lis_ft/{n}/epoch_050.pth" for n in ("image_only", "yolo_feat", "yolo_feat_w10")]
-YOLA_LIS_REPO = "BobRuan174/llie-yola-lis"          # 私有
+YOLA_LIS_REPO = "BobRuan174/llie-yola-lis"
 YOLA_LIS_FILES = ["yola_lis_ft/tood_lis/epoch_24.pth"]
 # YOLA 官方权重（README 里的 Google Drive 文件夹）
 YOLA_FOLDERS = {"tood_exdark": "1-NyMRIjztyc2RYz0i3nqRuLc2BG953HK",

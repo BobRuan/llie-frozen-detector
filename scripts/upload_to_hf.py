@@ -4,11 +4,11 @@
 
     huggingface-cli login                                   # 先登录（只需一次，用自己的 token）
     python scripts/upload_to_hf.py --repo <用户名>/llie-frozen-detector --public
-    python scripts/upload_to_hf.py --repo <用户名>/llie-yola-lis --yola     # YOLA 在 LIS 上微调的权重，默认私有
+    python scripts/upload_to_hf.py --repo <用户名>/llie-yola-lis --yola --public   # YOLA 在 LIS 上微调的权重
 
 上传内容（在仓库里的路径和本地 weights/ 下的路径相同）：
     默认     lis_ft/{image_only,yolo_feat,yolo_feat_w10}/epoch_050.pth   我们微调的 HVI-CIDNet（MIT 许可的衍生权重）
-    --yola   yola_lis_ft/tood_lis/epoch_24.pth                            YOLA 原仓库没有许可证，建议只放私有仓库
+    --yola   yola_lis_ft/tood_lis/epoch_24.pth                            YOLA 原仓库没有写许可证，使用条款以原作者为准
 """
 import os
 
