@@ -16,12 +16,12 @@ ENGR 501 课程项目：暗光增强 + 冻结检测器。复现低光增强模�
 
 | 内容 | 放在哪 |
 |---|---|
-| 我们微调的 CIDNet（`weights/lis_ft/*/epoch_050.pth`） | Hugging Face 公开仓库 `<用户名>/llie-frozen-detector` |
+| 我们微调的 CIDNet（`weights/lis_ft/*/epoch_050.pth`） | Hugging Face 公开仓库 `BobRuan174/llie-frozen-detector` |
 | YOLA 在 LIS 上微调的权重（`weights/yola_lis_ft/tood_lis/epoch_24.pth`） | Hugging Face 私有仓库（YOLA 没有许可证，不公开发布）；也可以用下面的命令重训 |
 | LIS、LOL-v2、HVI-CIDNet 官方权重、检测器、YOLA 官方权重 | 各自的原始来源 |
 
 ```bash
-git clone --recurse-submodules <本仓库地址>
+git clone --recurse-submodules https://github.com/BobRuan/llie-frozen-detector.git
 cd llie_driving
 bash envs/setup_envs.sh                  # 建 conda 环境 cidnet 和 yola（Linux；Windows 见下）
 conda activate cidnet

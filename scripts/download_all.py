@@ -34,9 +34,9 @@ CIDNET_WEIGHTS = {
 }
 DETECTORS = ["yolo11s.pt", "yolov8s.pt", "rtdetr-l.pt"]   # ultralytics 官方发布的 COCO 预训练权重
 # 我们训练的权重（Hugging Face 仓库名在上传后填进来）
-OURS_REPO = "<用户名>/llie-frozen-detector"
+OURS_REPO = "BobRuan174/llie-frozen-detector"
 OURS_FILES = [f"lis_ft/{n}/epoch_050.pth" for n in ("image_only", "yolo_feat", "yolo_feat_w10")]
-YOLA_LIS_REPO = "<用户名>/llie-yola-lis"          # 私有
+YOLA_LIS_REPO = "BobRuan174/llie-yola-lis"          # 私有
 YOLA_LIS_FILES = ["yola_lis_ft/tood_lis/epoch_24.pth"]
 # YOLA 官方权重（README 里的 Google Drive 文件夹）
 YOLA_FOLDERS = {"tood_exdark": "1-NyMRIjztyc2RYz0i3nqRuLc2BG953HK",
