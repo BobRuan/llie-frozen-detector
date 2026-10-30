@@ -1,38 +1,57 @@
 # Detection-Driven Low-Light Enhancement with a Frozen Detector
 
-Fine-tuning the low-light enhancer **HVI-CIDNet** with a loss computed by a **frozen YOLO detector**, so that one
-daytime detector works better in the dark **without retraining the detector and without box annotations on dark images**.
-
 Course project for ENGR 501 (Deep and Reinforcement Learning for Engineers), UBC Okanagan.
 
 [**Pretrained weights (Hugging Face)**](https://huggingface.co/BobRuan174/llie-frozen-detector) ·
 [**Detailed experiment log (Chinese)**](docs/experiment_log_zh.md)
+
+**In one sentence:** we fine-tune a low-light enhancement network (HVI-CIDNet) using a *frozen* object detector (YOLO11s)
+as part of the loss, so that an existing daytime detector works better at night **without retraining the detector and
+without any bounding boxes on dark images**.
+
+**In numbers** (LIS test set, 669 image pairs, mAP50): the detector scores 0.719 on normal-light images and drops to
+0.411 on dark ones. Off-the-shelf enhancement only reaches 0.466. Our enhancer reaches **0.625**, recovering about **70%**
+of the lost accuracy.
 
 ![Enhancement and detection results on an LIS test scene](docs/figures/lis_gallery_4459.jpg)
 <sub>LIS test scene 4459. Top: normal-light, dark, gamma, off-the-shelf CIDNet (generalization). Bottom: off-the-shelf
 CIDNet (LOL-v2), fine-tuned with image loss only, fine-tuned with the frozen-YOLO loss (λ = 1). Green: ground truth;
 red: YOLO11s detections.</sub>
 
-## Overview
+## 1. The problem: looking better is not detecting better
 
-Low-light enhancement networks are usually trained to make images *look* like their normal-light counterparts, which
-does not guarantee that a detector can *recognize* objects in them. On the LIS dataset we found that off-the-shelf
-enhancement often hurts detection: the variant with the highest PSNR detects worse than the raw dark image.
+Low-light enhancement networks are trained to make a dark image *look like* its normal-light version, and they are
+scored with image metrics such as PSNR. A natural plan is to put one in front of a detector at night. We tried that on
+LIS and found that it often makes detection **worse**:
 
-We keep the detector (COCO-pretrained YOLO11s) frozen and fine-tune only the enhancer. Besides the official image loss,
-the enhanced image and its paired normal-light image are both passed through the frozen detector, and the L1 distance
-between their neck features (the P3/P4/P5 maps that feed the detection head) is added to the loss. Training needs
-paired dark/normal images but no bounding boxes.
+| Input to the frozen YOLO11s | PSNR ↑ | mAP50 ↑ |
+|---|---|---|
+| Dark image, no enhancement | 13.73 | **0.411** |
+| Dark + gamma correction | 15.24 | 0.219 |
+| Dark + HVI-CIDNet, official `generalization.pth` | **17.52** | 0.355 |
+| Dark + HVI-CIDNet, official `LOLv2_real/w_perc.pth` | 15.72 | 0.466 |
 
-**Key results on the LIS test set (669 pairs, frozen YOLO11s, mAP50 over 8 classes):**
+The method with the highest PSNR detects worse than doing nothing. A likely reason: LIS images are extremely dark (mean
+brightness about 7/255), so brightening them also amplifies noise and shifts colours, and a detector trained on clean
+daytime COCO images is sensitive to those artefacts. Either way, image quality and detection accuracy are different
+targets.
 
-- Dark input **0.411** → ours **0.625**, closing about **70%** of the gap to normal-light input (0.719).
-- The detector-feature loss adds **+0.031** mAP50 over fine-tuning with the image loss alone (95% CI [+0.021, +0.043]).
-- The gain transfers to detectors never used in training (YOLOv8s **+0.038**, RT-DETR-L **+0.028**).
-- Ours beats the official weights of the low-light detector YOLA (NeurIPS 2024); YOLA retrained on LIS with box labels
-  is better (0.719), and ours reaches about 87% of it without labels or detector retraining.
+## 2. The setting: keep the detector, change only the enhancer
 
-## Method
+We assume a practical constraint: a system already has one detector that works in daylight, and we do not want to
+retrain or replace it for night-time. So:
+
+- The detector is **COCO-pretrained YOLO11s, frozen**. Its weights are never updated, and the exact same file is used for
+  evaluation.
+- Only the enhancer (HVI-CIDNet) is trained.
+- Training data is **pairs of dark and normal-light images of the same scene** (LIS is shot from a tripod with short and
+  long exposure). No bounding boxes are used for training.
+
+## 3. The idea: let the detector judge the enhancement
+
+If the goal is "the detector should see the dark image the way it sees the daylight image", we can measure that
+directly. We pass both the enhanced image and its paired normal-light image through the frozen detector and compare
+the feature maps the detector actually uses to find objects. That distance is added to the usual image loss:
 
 ```mermaid
 flowchart LR
@@ -49,23 +68,25 @@ flowchart LR
     I --> T
 ```
 
-- **Enhancer:** HVI-CIDNet initialized from the official `LOLv2_real/w_perc.pth`.
-- **Image loss:** the official HVI-CIDNet loss (L1 + SSIM + edge + VGG perceptual, in both RGB and HVI space).
-- **Feature loss:** mean L1 distance between the frozen YOLO11s features at layers 16/19/22 (the inputs of the
-  detection head) for the enhanced image and the normal-light image. Gradients flow through the detector into the
-  enhancer; the detector's parameters are never updated.
-- **Evaluation:** the original COCO-pretrained detector, unchanged, on enhanced test images.
+- **Image loss:** the official HVI-CIDNet loss (L1 + SSIM + edge + VGG perceptual, in both RGB and HVI space). It keeps
+  the output looking like a natural image.
+- **Feature loss:** mean L1 distance between the YOLO11s features at layers 16/19/22, i.e. the three maps (P3/P4/P5)
+  that feed the detection head. Gradients flow *through* the frozen detector back into the enhancer.
+- **Why features and not a detection loss:** a detection loss would need ground-truth boxes. Matching features only
+  needs the normal-light image, which plays the role of the "answer key".
+- **λ** sets the balance. λ = 0 is the control: the same fine-tuning with the image loss only.
 
-Implementation: [`scripts/train_lis.py`](scripts/train_lis.py).
+The enhancer starts from the official `LOLv2_real/w_perc.pth` weights. Implementation:
+[`scripts/train_lis.py`](scripts/train_lis.py).
 
-## Results
+## 4. Results
 
-All numbers are on the official LIS test split (669 pairs), mAP50 over 8 classes at IoU 0.5, detector input size 1280.
-PSNR/SSIM are measured against the paired normal-light image. Raw outputs are in [`logs/`](logs).
+All numbers are on the official LIS test split (669 pairs, 8 classes), mAP50 at IoU 0.5, detector input size 1280.
+PSNR/SSIM are measured against the paired normal-light image. Raw outputs behind every number are in [`logs/`](logs).
 
-### Main results (frozen YOLO11s)
+### Does it help?
 
-| Input to the detector | PSNR | SSIM | mAP50 | Recall |
+| Input to the frozen YOLO11s | PSNR | SSIM | mAP50 | Recall |
 |---|---|---|---|---|
 | Normal-light image (upper bound) | – | – | 0.719 | 0.729 |
 | Dark image (lower bound) | 13.73 | 0.142 | 0.411 | 0.399 |
@@ -76,7 +97,23 @@ PSNR/SSIM are measured against the paired normal-light image. Raw outputs are in
 | Dark + fine-tuned, λ = 1 | **21.50** | 0.524 | 0.616 | 0.602 |
 | Dark + fine-tuned, λ = 10 (**ours**) | 21.45 | 0.517 | **0.625** | **0.614** |
 
-### Robustness
+Yes: 0.411 → 0.625, about 70% of the gap between dark and normal-light input.
+
+### Where does the gain come from?
+
+The improvement has two separate parts, and the λ = 0 control lets us tell them apart:
+
+| Step | mAP50 | Gain | What it shows |
+|---|---|---|---|
+| Off-the-shelf CIDNet (`LOLv2_real/w_perc.pth`) | 0.466 | | |
+| + fine-tune on LIS, image loss only (λ = 0) | 0.594 | +0.128 | adapting the enhancer to this kind of darkness and noise |
+| + frozen-detector feature loss (λ = 10) | 0.625 | +0.031 | the contribution of this project's loss |
+
+Most of the gain comes from fine-tuning on the target data at all. The detector loss then adds +0.031, which closes
+about a quarter of the gap that image-only fine-tuning leaves. PSNR and SSIM barely change between λ = 0, 1 and 10, so
+the extra detection accuracy is invisible to image metrics. This is the point of section 1 seen from the other side.
+
+### Is the difference real or noise?
 
 Paired bootstrap over the 669 test images (2,000 resamples), YOLO11s:
 
@@ -87,7 +124,12 @@ Paired bootstrap over the 669 test images (2,000 resamples), YOLO11s:
 | λ = 10 vs. λ = 1 | +0.009 | [+0.002, +0.017] |
 | λ = 0 vs. off-the-shelf CIDNet | +0.128 | [+0.101, +0.151] |
 
-Same enhanced images, evaluated with detectors that were **not** used during training:
+All intervals exclude zero. They cover test-set sampling only; each setting was trained once (see Limitations).
+
+### Is the enhancer just overfitting to YOLO11s?
+
+A worry with a detector-based loss is that the enhancer learns tricks that only fool that one network. We evaluated the
+same enhanced images with two detectors that were **never used in training**, including a transformer-based one:
 
 | Input | YOLO11s (used in training) | YOLOv8s | RT-DETR-L |
 |---|---|---|---|
@@ -98,10 +140,13 @@ Same enhanced images, evaluated with detectors that were **not** used during tra
 | Fine-tuned, λ = 1 | 0.616 | 0.555 | 0.555 |
 | Fine-tuned, λ = 10 | **0.625** | **0.572** | **0.572** |
 
-The ranking is identical for all three detectors. The only non-significant difference is λ = 1 vs. λ = 0 on RT-DETR-L
-(95% CI [−0.001, +0.022]).
+The ranking is identical for all three detectors, and λ = 10 beats λ = 0 by +0.038 on YOLOv8s and +0.028 on RT-DETR-L.
+The only non-significant difference is λ = 1 vs. λ = 0 on RT-DETR-L (95% CI [−0.001, +0.022]).
 
-### Comparison with a dedicated low-light detector (YOLA, NeurIPS 2024)
+### How does it compare with a dedicated low-light detector?
+
+YOLA (NeurIPS 2024) is a detector designed for low light. It is a different kind of method, since it changes the
+detector, so the table states what each method is allowed to use:
 
 | Method | Detector | Detector trained on LIS | Needs LIS boxes | mAP50 |
 |---|---|---|---|---|
@@ -111,13 +156,37 @@ The ranking is identical for all three detectors. The only non-significant diffe
 | YOLA, official ExDark weights | YOLOv3 | No | No | 7 classes: 0.509 |
 | YOLA fine-tuned on LIS | TOOD | Yes | Yes | **0.719** |
 
-ExDark has no `tvmonitor` class, so the official YOLA weights are compared on the 7 shared classes. YOLA was fine-tuned
-on LIS with its official config, changing only the dataset, the number of classes (12 → 8) and the batch size (4 → 2,
-to fit 6 GB of GPU memory).
+- Under the same conditions (no detector retraining, no boxes), ours is better than YOLA's official weights.
+- When YOLA is retrained on LIS with box labels it is better (0.719). Ours reaches about 87% of that while keeping the
+  original detector and using no labels.
+- ExDark has no `tvmonitor` class, so the official YOLA weights are compared on the 7 shared classes. YOLA was fine-tuned
+  on LIS with its official config, changing only the dataset, the number of classes (12 → 8) and the batch size (4 → 2,
+  to fit 6 GB of GPU memory).
+
+## 5. Limitations
+
+- **One run per setting.** The confidence intervals cover test-set sampling, not training randomness (different seeds).
+- **λ was chosen by looking at test results.** Only 0, 1 and 10 were tried; a held-out validation split would be the
+  stricter protocol.
+- **One dataset.** LIS contains mostly static indoor and outdoor scenes. We have not shown the result on other data.
+- **Needs paired data.** The feature loss needs a normal-light image of the same scene, which is easy with a tripod but
+  not available for every application.
+
+## 6. How the project got here
+
+1. **Reproduced HVI-CIDNet** on LOL-v2-Real. The official weights match the official numbers to within 0.001 dB PSNR
+   (table below), so the starting point is trustworthy.
+2. **Tried off-the-shelf enhancement + detection on night-driving data** (DarkDriving, BDD100K samples). Enhancement made
+   detection worse there too, but those datasets were a poor fit: cars are tiny, oncoming headlights wash out whole
+   vehicles, and BDD100K's day and night images are not paired, so the feature loss could not be used.
+3. **Moved to LIS**, which has pixel-aligned dark/normal pairs and box labels for evaluation, and confirmed the problem on
+   the full test set (section 1).
+4. **Trained with the frozen-detector loss**, then checked significance, other detectors, and a dedicated low-light
+   detector (section 4).
+
+Details and the abandoned directions are in the [experiment log](docs/experiment_log_zh.md).
 
 ### Reproduction of HVI-CIDNet
-
-The official weights reproduce the official LOL-v2-Real numbers to within 0.001 dB PSNR:
 
 | Weights | GT-mean | Official PSNR / SSIM / LPIPS | Ours |
 |---|---|---|---|
@@ -163,7 +232,7 @@ The class names in the official LIS annotation file are in the wrong order; the 
 
 ## Usage
 
-**Evaluate the pretrained weights** (reproduces the main and robustness tables):
+**Evaluate the pretrained weights** (reproduces the tables in section 4):
 
 ```bash
 python scripts/run_pipeline_lis.py --data data/LIS/test --out outputs/lis_test \
@@ -181,7 +250,8 @@ python scripts/train_lis.py --name yolo_feat     --yolo_weight 1
 python scripts/train_lis.py --name yolo_feat_w10 --yolo_weight 10
 ```
 
-Add `--resume` to continue an interrupted run.
+Add `--resume` to continue an interrupted run. Settings: batch size 2, crop 256, Adam, learning rate 1e-4 with cosine
+decay to 1e-6, 50 epochs, seed 0. The final epoch is used; no checkpoint was selected on the test set.
 
 **Reproduce HVI-CIDNet on LOL-v2-Real:** `python scripts/reproduce_lolv2_real.py`
 
@@ -209,16 +279,6 @@ logs/                 raw logs and result JSON files behind every number in this
 docs/                 figures and the detailed experiment log
 data/ weights/ outputs/   created by the scripts, not tracked
 ```
-
-## Reproducibility notes
-
-- **Hardware:** RTX 3060 Laptop (6 GB). Training uses batch size 2, crop 256, Adam, learning rate 1e-4 with cosine
-  decay to 1e-6, 50 epochs, seed 0. The final epoch is used; no checkpoint was selected on the test set.
-- **Single run per setting:** the confidence intervals above cover test-set sampling only, not training randomness.
-- **λ was chosen by looking at test results** (only 0, 1 and 10 were tried); a held-out validation split would be the
-  stricter protocol.
-- **Single dataset:** LIS contains mostly static indoor/outdoor scenes. Early experiments on night-driving data
-  (DarkDriving, BDD100K) are documented in the [experiment log](docs/experiment_log_zh.md).
 
 ## Acknowledgements
 
