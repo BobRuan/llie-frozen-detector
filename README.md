@@ -13,10 +13,32 @@ without any bounding boxes on dark images**.
 0.411 on dark ones. Off-the-shelf enhancement only reaches 0.466. Our enhancer reaches **0.625**, recovering about **70%**
 of the lost accuracy.
 
-![Enhancement and detection results on an LIS test scene](docs/figures/lis_gallery_4459.jpg)
-<sub>LIS test scene 4459. Top: normal-light, dark, gamma, off-the-shelf CIDNet (generalization). Bottom: off-the-shelf
-CIDNet (LOL-v2), fine-tuned with image loss only, fine-tuned with the frozen-YOLO loss (λ = 1). Green: ground truth;
-red: YOLO11s detections.</sub>
+## Results
+
+All examples are from the LIS test set, which was not used for training.
+
+### Enhancement: input, output and ground truth
+
+![Input, output and ground truth on five LIS test scenes](docs/figures/lis_input_output_gt.jpg)
+<sub>Left: the dark input as captured (short exposure, not brightened). Middle: the output of our enhancer (λ = 10).
+Right: the ground truth, a long-exposure image of the same scene taken from the same tripod position. PSNR is measured
+against the ground truth. The five scenes were picked for variety (bus, classroom, bicycles, motorbikes, outdoor
+furniture) from 30 evenly spaced test images, without looking at the results.</sub>
+
+### Detection: what the frozen detector finds
+
+![Detection results of the frozen YOLO11s on six LIS test scenes](docs/figures/lis_examples.jpg)
+<sub>The same detector (COCO-pretrained YOLO11s, never trained here) on each version of the image. Green: ground-truth
+boxes; red: detections (confidence ≥ 0.25). "found k / n": k of the n labelled objects are matched by a detection
+(IoU ≥ 0.5). Rows 1–5 are among the test images where our loss helps most compared with image-only fine-tuning. The
+last row is a failure case: across all 669 test images, ours finds more objects than image-only fine-tuning on 113
+images, the same number on 517, and fewer on 39 (like this one).</sub>
+
+### Detection accuracy over the whole test set
+
+![mAP50 of the frozen YOLO11s for each input on the LIS test set](docs/figures/lis_map50.png)
+
+Full tables, significance tests, other detectors and the comparison with YOLA are in [section 4](#4-detailed-results).
 
 ## 1. The problem: looking better is not detecting better
 
@@ -79,7 +101,7 @@ flowchart LR
 The enhancer starts from the official `LOLv2_real/w_perc.pth` weights. Implementation:
 [`scripts/train_lis.py`](scripts/train_lis.py).
 
-## 4. Results
+## 4. Detailed results
 
 All numbers are on the official LIS test split (669 pairs, 8 classes), mAP50 at IoU 0.5, detector input size 1280.
 PSNR/SSIM are measured against the paired normal-light image. Raw outputs behind every number are in [`logs/`](logs).
@@ -240,6 +262,8 @@ python scripts/run_pipeline_lis.py --data data/LIS/test --out outputs/lis_test \
               ft_yolo_feat=weights/lis_ft/yolo_feat/epoch_050.pth \
               ft_yolo_feat_w10=weights/lis_ft/yolo_feat_w10/epoch_050.pth
 python scripts/eval_lis_robustness.py
+python scripts/make_readme_figures.py --triplet_ids 139 359 1519 3461 3369 \
+    --ids 379 3787 183 1639 3831 3209    # the figures in the Results section
 ```
 
 **Train** (about 3 hours per run on a 6 GB RTX 3060 Laptop GPU):
